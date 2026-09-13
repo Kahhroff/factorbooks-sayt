@@ -636,9 +636,17 @@ function sahifaKitob(kitoblar, id){
   qator("Muqova",         bosh(k.muqova));
   qator("ISBN",           k.isbn);
 
-  var holatMatn = "";
-  if(k.holat === "tez kunda"){ holatMatn = '<p style="color:var(--blue);font-weight:500;margin:0 0 20px">Tez kunda sotuvda</p>'; }
-  if(k.holat === "tugagan"){   holatMatn = '<p style="color:var(--ink-soft);margin:0 0 20px">Hozircha sotuvda yo\'q</p>'; }
+  // Narx yoki holat — qaysi biri ko'rsatilishini oldindan hisoblaymiz
+  var narxBloki = "";
+  if(k.holat === "sotuvda"){
+    narxBloki = '<p class="narx-katta">' + narxYoz(k.narx_chakana) + '</p>';
+  } else if(k.holat === "tez kunda"){
+    narxBloki = '<p style="color:var(--blue);font-weight:500;margin:0 0 20px">Tez kunda sotuvda</p>';
+  } else if(k.holat === "tugagan"){
+    narxBloki = '<p style="color:var(--ink-soft);margin:0 0 20px">Hozircha sotuvda yo\'q</p>';
+  }
+
+  var tel1 = SOZLAMA.telefon1.replace(/\s/g, "");
 
   return ''
   + '<section class="bolim"><div class="ichki">'
@@ -652,14 +660,12 @@ function sahifaKitob(kitoblar, id){
   +     '<div>'
   +       '<h1>' + xavfsiz(k.nomi) + '</h1>'
   +       '<p class="muallif-katta">' + xavfsiz(k.muallif) + '</p>'
-  +       (k.holat === "sotuvda"
-  +          ? '<p class="narx-katta">' + narxYoz(k.narx_chakana) + '</p>'
-  +          : holatMatn)
+  +       narxBloki
   +       '<div class="tavsif-matn">' + tavsif + '</div>'
   +       '<table class="tafsilot">' + qatorlar.join("") + '</table>'
   +       '<p style="font-size:15px;color:var(--ink-soft)">Buyurtma berish uchun: '
   +         '<a href="' + SOZLAMA.telegram + '" target="_blank" rel="noopener" style="color:var(--blue)">Telegram</a>'
-  +         ' yoki <a href="tel:' + SOZLAMA.telefon1.replace(/\s/g,"") + '" style="color:var(--blue)">'
+  +         ' yoki <a href="tel:' + tel1 + '" style="color:var(--blue)">'
   +         SOZLAMA.telefon1 + '</a></p>'
   +     '</div>'
   +   '</div>'
