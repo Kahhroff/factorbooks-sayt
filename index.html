@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factor books — nashriyot</title>
+<meta name="description" content="Factor books — 2021-yildan beri faoliyat yuritayotgan mustaqil nashriyot. Jahon adabiyotini asl nusxadan o'zbek tiliga tarjima qilamiz.">
+
+<!-- ================== IJTIMOIY TARMOQDA ULASHILGANDA KO'RINADIGAN MA'LUMOT ================== -->
+<meta property="og:title" content="Factor books — nashriyot">
+<meta property="og:description" content="Jahon adabiyoti. Asl nusxadan tarjima.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="rasmlar/logo.png">
+
+<link rel="icon" href="rasmlar/logo.png">
+
+<!-- Shriftlar. O'zbek harflari (o', g') to'liq qo'llab-quvvatlanadi. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   FACTOR BOOKS — sayt uslublari
+   Ranglar logotipdan olingan.
+   ============================================================ */
+
+:root{
+  --navy:      #000B5C;   /* logotipdagi to'q ko'k */
+  --blue:      #2A76D2;   /* logotipdagi ochiq ko'k */
+  --blue-soft: #E8F0FB;   /* ko'kning juda ochiq soyasi */
+  --paper:     #F7F8FB;   /* sahifa foni */
+  --ink:       #1A1D2E;   /* asosiy matn */
+  --ink-soft:  #5C6178;   /* ikkinchi darajali matn */
+  --line:      #DDE1EC;   /* chiziqlar */
+  --white:     #FFFFFF;
+
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --max: 1080px;          /* kontent maksimal kengligi */
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+
+/* Klaviatura bilan yurganda fokus ko'rinsin */
+:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* Harakatni kamaytirish sozlamasi yoqilgan bo'lsa animatsiya o'chadi */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+
+.ichki{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+
+/* ---------- YUQORI PANEL ---------- */
+
+.shapka{
+  background:var(--navy);
+  color:var(--white);
+  position:sticky; top:0; z-index:50;
+}
+.shapka .ichki{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:60px; gap:16px;
+}
+.logo{
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none; color:var(--white);
+  font-weight:600; font-size:17px; letter-spacing:.01em;
+}
+.logo img{ height:30px; width:auto; }
+
+.menyu-tugma{
+  background:none; border:1px solid rgba(255,255,255,.35);
+  color:var(--white); border-radius:6px;
+  width:40px; height:36px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; line-height:1;
+}
+.menyu-tugma:hover{ background:rgba(255,255,255,.1); }
+
+.menyu{ display:none; }
+.menyu a{
+  color:rgba(255,255,255,.85);
+  text-decoration:none; font-size:15px; padding:8px 2px;
+}
+.menyu a:hover{ color:var(--white); }
+.menyu a.faol{ color:var(--white); border-bottom:2px solid var(--blue); }
+
+/* Telefonda ochiladigan menyu */
+.menyu.ochiq{
+  display:flex; flex-direction:column; gap:4px;
+  position:absolute; left:0; right:0; top:60px;
+  background:var(--navy); padding:12px 20px 20px;
+  border-top:1px solid rgba(255,255,255,.15);
+}
+.menyu.ochiq a{ padding:10px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+
+@media (min-width:800px){
+  .menyu-tugma{ display:none; }
+  .menyu{ display:flex; gap:26px; align-items:center; }
+  .menyu.ochiq{ position:static; flex-direction:row; padding:0; background:none; border:none; }
+  .menyu.ochiq a{ border:none; padding:8px 2px; }
+}
+
+/* ---------- BOSH SAHIFA ---------- */
+
+.hero{
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:52px 0 44px;
+}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(28px, 6vw, 44px);
+  line-height:1.22;
+  font-weight:600;
+  margin:0 0 18px;
+  max-width:17ch;
+  color:var(--navy);
+}
+.hero p{
+  margin:0; max-width:56ch;
+  color:var(--ink-soft); font-size:17px;
+}
+.hero-raqam{
+  display:flex; gap:32px; flex-wrap:wrap;
+  margin-top:32px; padding-top:24px;
+  border-top:1px solid var(--line);
+}
+.hero-raqam div span{
+  display:block;
+  font-family:var(--serif); font-size:26px; font-weight:600;
+  color:var(--navy);
+}
+.hero-raqam div small{ color:var(--ink-soft); font-size:14px; }
+
+/* ---------- BO'LIM SARLAVHASI ---------- */
+
+.bolim{ padding:44px 0; }
+
+.bolim-bosh{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; margin-bottom:22px;
+}
+.bolim-bosh h2{
+  font-family:var(--serif); font-size:24px; font-weight:600;
+  margin:0; color:var(--navy);
+}
+.bolim-bosh a{ font-size:15px; color:var(--blue); text-decoration:none; }
+.bolim-bosh a:hover{ text-decoration:underline; }
+
+/* ---------- KITOBLAR TO'RI ---------- */
+
+.tur{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:22px 16px;
+}
+@media (min-width:620px){ .tur{ grid-template-columns:repeat(3,1fr); gap:28px 22px; } }
+@media (min-width:900px){ .tur{ grid-template-columns:repeat(4,1fr); } }
+
+.kitob{ text-decoration:none; color:inherit; display:block; }
+
+.muqova{
+  aspect-ratio:2/3;
+  background:var(--blue-soft);
+  border-radius:4px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 1px 3px rgba(0,11,92,.10);
+}
+.muqova img{ width:100%; height:100%; object-fit:cover; }
+
+/* Rasm topilmasa shu ko'rinadi */
+.muqova-bosh{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:14px; text-align:center;
+  font-family:var(--serif); font-size:14px; line-height:1.35;
+  color:var(--navy);
+}
+
+.kitob h3{
+  font-family:var(--serif); font-size:16px; font-weight:600;
+  margin:11px 0 3px; line-height:1.3;
+}
+.kitob .muallif{ font-size:13px; color:var(--ink-soft); margin:0; }
+.kitob .narx{ font-size:14px; margin:6px 0 0; font-weight:500; color:var(--navy); }
+
+.nishon{
+  display:inline-block;
+  font-size:11px; font-weight:600; letter-spacing:.02em;
+  padding:3px 7px; border-radius:3px;
+  background:var(--blue); color:var(--white);
+  position:absolute; top:8px; left:8px;
+}
+.nishon.kul{ background:var(--ink-soft); }
+
+/* ---------- KATALOG FILTRLARI ---------- */
+
+.filtr{
+  display:flex; flex-wrap:wrap; gap:10px;
+  margin-bottom:26px;
+}
+.filtr input, .filtr select{
+  font-family:var(--sans); font-size:15px;
+  padding:10px 12px;
+  border:1px solid var(--line); border-radius:6px;
+  background:var(--white); color:var(--ink);
+  min-width:0;
+}
+.filtr input{ flex:1 1 200px; }
+.filtr select{ flex:0 1 auto; }
+
+.natija-soni{ font-size:14px; color:var(--ink-soft); margin:0 0 18px; }
+
+/* ---------- KITOB SAHIFASI ---------- */
+
+.kitob-sahifa{ display:grid; gap:28px; }
+@media (min-width:760px){
+  .kitob-sahifa{ grid-template-columns:280px 1fr; gap:44px; align-items:start; }
+}
+.kitob-sahifa h1{
+  font-family:var(--serif); font-size:clamp(23px,4.5vw,32px);
+  font-weight:600; margin:0 0 6px; color:var(--navy); line-height:1.25;
+}
+.kitob-sahifa .muallif-katta{ font-size:17px; color:var(--ink-soft); margin:0 0 22px; }
+
+.narx-katta{
+  font-family:var(--serif); font-size:27px; font-weight:600;
+  color:var(--navy); margin:0 0 20px;
+}
+
+.tafsilot{
+  width:100%; border-collapse:collapse;
+  margin:24px 0; font-size:15px;
+}
+.tafsilot th, .tafsilot td{
+  text-align:left; padding:9px 0;
+  border-bottom:1px solid var(--line); vertical-align:top;
+}
+.tafsilot th{ font-weight:500; color:var(--ink-soft); width:42%; }
+
+.tavsif-matn{ font-size:16px; line-height:1.7; max-width:68ch; }
+.tavsif-matn p{ margin:0 0 14px; }
+
+.orqaga{
+  display:inline-block; margin-bottom:20px;
+  font-size:15px; color:var(--blue); text-decoration:none;
+}
+.orqaga:hover{ text-decoration:underline; }
+
+/* ---------- MATNLI SAHIFALAR ---------- */
+
+.matn{ max-width:68ch; }
+.matn h1{
+  font-family:var(--serif); font-size:clamp(25px,5vw,34px);
+  font-weight:600; color:var(--navy); margin:0 0 22px;
+}
+.matn h2{
+  font-family:var(--serif); font-size:20px; font-weight:600;
+  color:var(--navy); margin:34px 0 12px;
+}
+.matn p{ margin:0 0 16px; line-height:1.72; }
+
+.jamoa{ list-style:none; padding:0; margin:0; }
+.jamoa li{
+  padding:12px 0; border-bottom:1px solid var(--line);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+.jamoa strong{ font-weight:500; }
+.jamoa span{ color:var(--ink-soft); font-size:14px; }
+
+.aloqa-royxat{ list-style:none; padding:0; margin:0; }
+.aloqa-royxat li{ padding:14px 0; border-bottom:1px solid var(--line); }
+.aloqa-royxat small{ display:block; color:var(--ink-soft); font-size:13px; margin-bottom:3px; }
+.aloqa-royxat a{ color:var(--blue); text-decoration:none; font-size:17px; }
+.aloqa-royxat a:hover{ text-decoration:underline; }
+
+/* ---------- "TEZ KUNDA" QUTISI ---------- */
+
+.tezkunda{
+  background:var(--white); border:1px solid var(--line);
+  border-radius:8px; padding:36px 26px; text-align:center;
+  max-width:520px; margin:20px auto;
+}
+.tezkunda h1{
+  font-family:var(--serif); font-size:26px; color:var(--navy);
+  margin:0 0 12px; font-weight:600;
+}
+.tezkunda p{ color:var(--ink-soft); margin:0 0 20px; }
+.tezkunda a{
+  display:inline-block; background:var(--blue); color:var(--white);
+  text-decoration:none; padding:12px 22px; border-radius:6px;
+  font-size:15px; font-weight:500;
+}
+.tezkunda a:hover{ background:var(--navy); }
+
+/* ---------- HOLAT XABARLARI ---------- */
+
+.holat{
+  padding:52px 20px; text-align:center; color:var(--ink-soft);
+}
+.holat strong{ display:block; color:var(--ink); margin-bottom:6px; font-weight:600; }
+
+/* ---------- PASTKI PANEL ---------- */
+
+.futer{
+  background:var(--navy); color:rgba(255,255,255,.72);
+  margin-top:56px; padding:38px 0 30px; font-size:14px;
+}
+.futer a{ color:rgba(255,255,255,.9); text-decoration:none; }
+.futer a:hover{ text-decoration:underline; }
+.futer-tur{
+  display:grid; gap:26px; margin-bottom:28px;
+}
+@media (min-width:700px){ .futer-tur{ grid-template-columns:2fr 1fr 1fr; gap:40px; } }
+.futer h4{
+  color:var(--white); font-size:14px; font-weight:600;
+  margin:0 0 10px;
+}
+.futer ul{ list-style:none; padding:0; margin:0; }
+.futer li{ margin-bottom:7px; }
+.futer-past{
+  border-top:1px solid rgba(255,255,255,.15);
+  padding-top:18px; font-size:13px; color:rgba(255,255,255,.5);
+}
+</style>
+</head>
+<body>
+
+<!-- ============ YUQORI PANEL ============ -->
+<header class="shapka">
+  <div class="ichki">
+    <a class="logo" href="#/">
+      <img src="rasmlar/logo.png" alt="" onerror="this.style.display='none'">
+      <span>Factor books</span>
+    </a>
+    <button class="menyu-tugma" id="menyuTugma" aria-label="Menyu" aria-expanded="false">☰</button>
+    <nav class="menyu" id="menyu">
+      <a href="#/">Bosh sahifa</a>
+      <a href="#/kitoblar">Kitoblar</a>
+      <a href="#/dokon">Do'kon</a>
+      <a href="#/haqida">Nashriyot haqida</a>
+      <a href="#/aloqa">Aloqa</a>
+    </nav>
+  </div>
+</header>
+
+<main id="ekran"></main>
+
+<!-- ============ PASTKI PANEL ============ -->
+<footer class="futer">
+  <div class="ichki">
+    <div class="futer-tur">
+      <div>
+        <h4>Factor books</h4>
+        <p style="margin:0;max-width:38ch">Jahon adabiyotini asl nusxadan o'zbek tiliga tarjima qiluvchi mustaqil nashriyot.</p>
+      </div>
+      <div>
+        <h4>Sahifalar</h4>
+        <ul>
+          <li><a href="#/kitoblar">Kitoblar</a></li>
+          <li><a href="#/haqida">Nashriyot haqida</a></li>
+          <li><a href="#/aloqa">Aloqa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Aloqa</h4>
+        <ul>
+          <li><a href="tel:+998950359511">+998 95 035 95 11</a></li>
+          <li><a href="https://t.me/factorbooks_info" target="_blank" rel="noopener">Telegram</a></li>
+          <li><a href="https://instagram.com/factor_books" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="futer-past">
+      "New Factor Books" MChJ · Toshkent, Lutfiy ko'chasi 94 · <span id="yil"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   FACTOR BOOKS — sayt mantiqiy qismi
+   ============================================================ */
+
+/* ---------- SOZLAMALAR ----------
+   Faqat shu blokni o'zgartirasiz. Qolgan koddan pastga tegmang. */
+
+var SOZLAMA = {
+  // Google Apps Script API manzili
+  api: "https://script.google.com/macros/s/AKfycbzqzes3O_B1kjZmBjG0aW-UeEtwTKiDh5z5g3JcOFCt-H7pyJI_fbsBh3ENjk2WOzKe/exec",
+
+  // Muqova rasmlari qaysi papkada turadi
+  rasmPapka: "rasmlar/muqovalar/",
+
+  // Aloqa ma'lumotlari
+  telefon1: "+998 95 035 95 11",
+  telefon2: "+998 95 079 95 11",
+  email:    "factorbooksofficial@gmail.com",
+  manzil:   "Toshkent, Lutfiy ko'chasi 94",
+  telegram: "https://t.me/factorbooks_info",
+  instagram:"https://instagram.com/factor_books",
+
+  // Bosh sahifada nechta yangi kitob ko'rsatilsin
+  boshSahifaSoni: 8
+};
+
+/* ---------- MA'LUMOT SAQLASH ----------
+   Kitoblar bir marta yuklanadi va xotirada saqlanadi.
+   Sahifalar almashganda qayta so'rov yuborilmaydi. */
+
+var BAZA = { kitoblar:null, yuklanmoqda:false, xato:null };
+
+function kitoblarniYukla(){
+  // Allaqachon yuklangan bo'lsa — darhol qaytaramiz
+  if(BAZA.kitoblar){ return Promise.resolve(BAZA.kitoblar); }
+
+  BAZA.yuklanmoqda = true;
+  BAZA.xato = null;
+
+  return fetch(SOZLAMA.api)
+    .then(function(j){
+      if(!j.ok){ throw new Error("Server javob bermadi (" + j.status + ")"); }
+      return j.json();
+    })
+    .then(function(d){
+      if(!d.ok){ throw new Error(d.xato || "Noma'lum xato"); }
+      BAZA.kitoblar = d.kitoblar || [];
+      BAZA.yuklanmoqda = false;
+      return BAZA.kitoblar;
+    })
+    .catch(function(e){
+      BAZA.yuklanmoqda = false;
+      BAZA.xato = e.message;
+      throw e;
+    });
+}
+
+/* ---------- YORDAMCHI FUNKSIYALAR ---------- */
+
+// Matnni HTML'ga xavfsiz joylash uchun
+function xavfsiz(matn){
+  return String(matn == null ? "" : matn)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// 65000 -> "65 000 so'm"
+function narxYoz(son){
+  var n = parseInt(String(son).replace(/\D/g,""), 10);
+  if(!n || isNaN(n)){ return ""; }
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " so'm";
+}
+
+// Birinchi harfni katta qilish
+function bosh(matn){
+  var s = String(matn || "");
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
+}
+
+/* ---------- KITOB KARTASI ---------- */
+
+function kartaHtml(k){
+  var nishon = "";
+  if(k.holat === "tez kunda"){ nishon = '<span class="nishon">Tez kunda</span>'; }
+  if(k.holat === "tugagan"){   nishon = '<span class="nishon kul">Tugagan</span>'; }
+
+  var narx = (k.holat === "sotuvda") ? narxYoz(k.narx_chakana) : "";
+
+  return ''
+  + '<a class="kitob" href="#/kitob/' + xavfsiz(k.id) + '">'
+  +   '<div class="muqova">'
+  +     '<div class="muqova-bosh">' + xavfsiz(k.nomi) + '</div>'
+  +     '<img src="' + SOZLAMA.rasmPapka + xavfsiz(k.rasm) + '" alt="'
+  +        xavfsiz(k.nomi) + '" loading="lazy" onerror="this.remove()">'
+  +     nishon
+  +   '</div>'
+  +   '<h3>' + xavfsiz(k.nomi) + '</h3>'
+  +   '<p class="muallif">' + xavfsiz(k.muallif) + '</p>'
+  +   (narx ? '<p class="narx">' + narx + '</p>' : '')
+  + '</a>';
+}
+
+/* ---------- SAHIFALAR ---------- */
+
+// 1. BOSH SAHIFA
+function sahifaBosh(kitoblar){
+  // Eng yangi kitoblar: yil bo'yicha teskari tartib
+  var yangi = kitoblar.slice().sort(function(a,b){
+    return (parseInt(b.yil,10)||0) - (parseInt(a.yil,10)||0);
+  }).slice(0, SOZLAMA.boshSahifaSoni);
+
+  return ''
+  + '<section class="hero"><div class="ichki">'
+  +   '<h1>Jahon adabiyoti, asl nusxadan tarjima qilingan</h1>'
+  +   '<p>Factor books — 2021-yildan beri faoliyat yuritayotgan mustaqil nashriyot. '
+  +   'Kitoblarni ingliz, turk, rus va arab tillaridan bevosita o\'zbek tiliga o\'giramiz, '
+  +   'oraliq tilsiz. Muallif huquqlari rasmiy shartnoma asosida sotib olinadi.</p>'
+  +   '<div class="hero-raqam">'
+  +     '<div><span>40+</span><small>nashr etilgan kitob</small></div>'
+  +     '<div><span>4</span><small>tarjima tili</small></div>'
+  +     '<div><span>2021</span><small>tashkil topgan yil</small></div>'
+  +   '</div>'
+  + '</div></section>'
+
+  + '<section class="bolim"><div class="ichki">'
+  +   '<div class="bolim-bosh">'
+  +     '<h2>Yangi kitoblar</h2>'
+  +     '<a href="#/kitoblar">Barchasi</a>'
+  +   '</div>'
+  +   '<div class="tur">' + yangi.map(kartaHtml).join("") + '</div>'
+  + '</div></section>';
+}
+
+// 2. KITOBLAR KATALOGI
+function sahifaKatalog(kitoblar){
+  // Jadvalda mavjud janr va tillarni yig'amiz
+  var janrlar = [], tillar = [];
+  kitoblar.forEach(function(k){
+    if(k.janr   && janrlar.indexOf(k.janr) === -1){ janrlar.push(k.janr); }
+    if(k.til_asl&& tillar.indexOf(k.til_asl) === -1){ tillar.push(k.til_asl); }
+  });
+  janrlar.sort(); tillar.sort();
+
+  var html = ''
+  + '<section class="bolim"><div class="ichki">'
+  +   '<div class="bolim-bosh"><h2>Kitoblar</h2></div>'
+  +   '<div class="filtr">'
+  +     '<input type="search" id="qidiruv" placeholder="Kitob yoki muallif nomi" aria-label="Qidiruv">'
+  +     '<select id="fJanr" aria-label="Janr"><option value="">Barcha janrlar</option>'
+  +        janrlar.map(function(j){ return '<option value="'+xavfsiz(j)+'">'+xavfsiz(bosh(j))+'</option>'; }).join("")
+  +     '</select>'
+  +     '<select id="fTil" aria-label="Til"><option value="">Barcha tillar</option>'
+  +        tillar.map(function(t){ return '<option value="'+xavfsiz(t)+'">'+xavfsiz(bosh(t))+' tilidan</option>'; }).join("")
+  +     '</select>'
+  +   '</div>'
+  +   '<p class="natija-soni" id="natijaSoni"></p>'
+  +   '<div class="tur" id="katalogTur"></div>'
+  + '</div></section>';
+
+  return html;
+}
+
+// Katalog filtrlarini ishga tushirish (sahifa chizilgandan keyin chaqiriladi)
+function katalogniIshlat(kitoblar){
+  var qidiruv = document.getElementById("qidiruv");
+  var fJanr   = document.getElementById("fJanr");
+  var fTil    = document.getElementById("fTil");
+  var tur     = document.getElementById("katalogTur");
+  var soni    = document.getElementById("natijaSoni");
+  if(!tur){ return; }
+
+  function chiz(){
+    var q = (qidiruv.value || "").toLowerCase().trim();
+    var j = fJanr.value;
+    var t = fTil.value;
+
+    var royxat = kitoblar.filter(function(k){
+      if(j && k.janr !== j){ return false; }
+      if(t && k.til_asl !== t){ return false; }
+      if(q){
+        var matn = (k.nomi + " " + k.muallif + " " + k.tarjimon).toLowerCase();
+        if(matn.indexOf(q) === -1){ return false; }
+      }
+      return true;
+    });
+
+    if(royxat.length === 0){
+      tur.innerHTML = '';
+      soni.innerHTML = 'Bu shartlarga mos kitob topilmadi. Filtrlarni o\'zgartiring.';
+      return;
+    }
+
+    soni.textContent = royxat.length + " ta kitob";
+    tur.innerHTML = royxat.map(kartaHtml).join("");
+  }
+
+  qidiruv.addEventListener("input", chiz);
+  fJanr.addEventListener("change", chiz);
+  fTil.addEventListener("change", chiz);
+  chiz();
+}
+
+// 3. BITTA KITOB SAHIFASI
+function sahifaKitob(kitoblar, id){
+  var k = null;
+  for(var i=0;i<kitoblar.length;i++){
+    if(kitoblar[i].id === id){ k = kitoblar[i]; break; }
+  }
+
+  if(!k){
+    return '<div class="holat"><strong>Kitob topilmadi</strong>'
+         + 'Bu havola eskirgan bo\'lishi mumkin. '
+         + '<a href="#/kitoblar" style="color:var(--blue)">Katalogga o\'tish</a></div>';
+  }
+
+  // Tavsifni xatboshilarga bo'lamiz
+  var tavsif = k.tavsif
+    ? k.tavsif.split(/\n+/).map(function(p){ return '<p>' + xavfsiz(p) + '</p>'; }).join("")
+    : '<p style="color:var(--ink-soft)">Bu kitob haqida tavsif tez orada qo\'shiladi.</p>';
+
+  // Tafsilotlar jadvali — faqat to'ldirilgan qatorlar ko'rinadi
+  var qatorlar = [];
+  function qator(nom, qiymat){
+    if(qiymat){ qatorlar.push('<tr><th>'+nom+'</th><td>'+xavfsiz(qiymat)+'</td></tr>'); }
+  }
+  qator("Muallif",        k.muallif);
+  qator("Tarjimon",       k.tarjimon);
+  qator("Asl tili",       bosh(k.til_asl));
+  qator("Janr",           bosh(k.janr));
+  qator("Sahifalar soni", k.sahifa);
+  qator("Nashr yili",     k.yil);
+  qator("Muqova",         bosh(k.muqova));
+  qator("ISBN",           k.isbn);
+
+  var holatMatn = "";
+  if(k.holat === "tez kunda"){ holatMatn = '<p style="color:var(--blue);font-weight:500;margin:0 0 20px">Tez kunda sotuvda</p>'; }
+  if(k.holat === "tugagan"){   holatMatn = '<p style="color:var(--ink-soft);margin:0 0 20px">Hozircha sotuvda yo\'q</p>'; }
+
+  return ''
+  + '<section class="bolim"><div class="ichki">'
+  +   '<a class="orqaga" href="#/kitoblar">← Kitoblarga qaytish</a>'
+  +   '<div class="kitob-sahifa">'
+  +     '<div class="muqova">'
+  +       '<div class="muqova-bosh">' + xavfsiz(k.nomi) + '</div>'
+  +       '<img src="' + SOZLAMA.rasmPapka + xavfsiz(k.rasm) + '" alt="'
+  +          xavfsiz(k.nomi) + '" onerror="this.remove()">'
+  +     '</div>'
+  +     '<div>'
+  +       '<h1>' + xavfsiz(k.nomi) + '</h1>'
+  +       '<p class="muallif-katta">' + xavfsiz(k.muallif) + '</p>'
+  +       (k.holat === "sotuvda"
+  +          ? '<p class="narx-katta">' + narxYoz(k.narx_chakana) + '</p>'
+  +          : holatMatn)
+  +       '<div class="tavsif-matn">' + tavsif + '</div>'
+  +       '<table class="tafsilot">' + qatorlar.join("") + '</table>'
+  +       '<p style="font-size:15px;color:var(--ink-soft)">Buyurtma berish uchun: '
+  +         '<a href="' + SOZLAMA.telegram + '" target="_blank" rel="noopener" style="color:var(--blue)">Telegram</a>'
+  +         ' yoki <a href="tel:' + SOZLAMA.telefon1.replace(/\s/g,"") + '" style="color:var(--blue)">'
+  +         SOZLAMA.telefon1 + '</a></p>'
+  +     '</div>'
+  +   '</div>'
+  + '</div></section>';
+}
+
+// 4. NASHRIYOT HAQIDA
+function sahifaHaqida(){
+  var jamoa = [
+    ["Sohibjamol Kattayeva", "Rahbar"],
+    ["Xurshida Primqulova",  "Badiiy muharrir"],
+    ["Feruza Kattayeva",     "Muharrir"],
+    ["Saidjalol Saidmurodov","Muharrir"],
+    ["Aziz Said",            "Muharrir"],
+    ["Ruxsora Nur",          "Tarjimon"],
+    ["Rahmat Bobojon",       "Tarjimon"],
+    ["Shahzod Shodmon",      "Tarjimon"],
+    ["Saodat Abdurahmonova", "Tarjimon"]
+  ];
+
+  return ''
+  + '<section class="bolim"><div class="ichki"><div class="matn">'
+  +   '<h1>Nashriyot haqida</h1>'
+  +   '<p>Factor books — 2021-yildan beri faoliyat yuritayotgan mustaqil nashriyot. '
+  +     '40 dan ortiq kitob nashr etdik.</p>'
+  +   '<p>Biz jahon adabiyotini o\'zbek kitobxoniga yetkazamiz — badiiy asarlar va '
+  +     'non-fiction. Kitoblarni ingliz, turk, rus va arab tillaridan asl nusxadan '
+  +     'tarjima qilamiz, oraliq tilsiz. Muallif huquqlari rasmiy shartnoma asosida '
+  +     'sotib olinadi.</p>'
+  +   '<p>Bizning ishimiz — matnni tez chiqarish emas, to\'g\'ri chiqarish.</p>'
+
+  +   '<h2>Jamoa</h2>'
+  +   '<ul class="jamoa">'
+  +     jamoa.map(function(x){
+          return '<li><strong>' + xavfsiz(x[0]) + '</strong><span>' + xavfsiz(x[1]) + '</span></li>';
+        }).join("")
+  +   '</ul>'
+  + '</div></div></section>';
+}
+
+// 5. ALOQA
+function sahifaAloqa(){
+  return ''
+  + '<section class="bolim"><div class="ichki"><div class="matn">'
+  +   '<h1>Aloqa</h1>'
+  +   '<ul class="aloqa-royxat">'
+  +     '<li><small>Telefon</small><a href="tel:'+SOZLAMA.telefon1.replace(/\s/g,"")+'">'+SOZLAMA.telefon1+'</a></li>'
+  +     '<li><small>Telefon</small><a href="tel:'+SOZLAMA.telefon2.replace(/\s/g,"")+'">'+SOZLAMA.telefon2+'</a></li>'
+  +     '<li><small>Telegram</small><a href="'+SOZLAMA.telegram+'" target="_blank" rel="noopener">@factorbooks_info</a></li>'
+  +     '<li><small>Instagram</small><a href="'+SOZLAMA.instagram+'" target="_blank" rel="noopener">@factor_books</a></li>'
+  +     '<li><small>Elektron pochta</small><a href="mailto:'+SOZLAMA.email+'">'+SOZLAMA.email+'</a></li>'
+  +     '<li><small>Manzil</small><span style="font-size:17px">'+SOZLAMA.manzil+'</span></li>'
+  +   '</ul>'
+  +   '<h2>Ulgurji savdo</h2>'
+  +   '<p>Kitob do\'konlari va tarqatuvchilar uchun ulgurji narxlar va shartlar '
+  +     'alohida kelishiladi. Telegram orqali murojaat qiling.</p>'
+  + '</div></div></section>';
+}
+
+// 6. DO'KON — hozircha yopiq
+function sahifaDokon(){
+  return ''
+  + '<section class="bolim"><div class="ichki">'
+  +   '<div class="tezkunda">'
+  +     '<h1>Onlayn do\'kon tez kunda</h1>'
+  +     '<p>Saytdan to\'g\'ridan-to\'g\'ri xarid qilish imkoniyati ustida ishlayapmiz. '
+  +       'Hozircha buyurtmalarni Telegram orqali qabul qilamiz.</p>'
+  +     '<a href="'+SOZLAMA.telegram+'" target="_blank" rel="noopener">Telegramda buyurtma berish</a>'
+  +   '</div>'
+  + '</div></section>';
+}
+
+/* ---------- YO'NALTIRUVCHI (ROUTER) ----------
+   Manzil satridagi # dan keyingi qismga qarab sahifa tanlanadi. */
+
+var ekran = document.getElementById("ekran");
+
+function yuklanmoqdaKorsat(){
+  ekran.innerHTML = '<div class="holat"><strong>Yuklanmoqda</strong>Bir lahza kuting…</div>';
+}
+
+function xatoKorsat(xabar){
+  ekran.innerHTML = '<div class="holat"><strong>Ma\'lumot yuklanmadi</strong>'
+    + xavfsiz(xabar) + '<br><br>'
+    + '<a href="javascript:location.reload()" style="color:var(--blue)">Qayta urinish</a></div>';
+}
+
+function yonaltir(){
+  var yol = (location.hash || "#/").replace(/^#/, "");
+  var qism = yol.split("/").filter(Boolean);   // ["kitob","k-001"] ko'rinishida
+
+  // Menyuda faol havolani belgilash
+  var havolalar = document.querySelectorAll("#menyu a");
+  for(var i=0;i<havolalar.length;i++){
+    var h = havolalar[i].getAttribute("href").replace(/^#/,"");
+    havolalar[i].classList.toggle("faol", h === yol || (yol==="/" && h==="/"));
+  }
+
+  // Telefonda menyu ochiq bo'lsa — yopamiz
+  document.getElementById("menyu").classList.remove("ochiq");
+  document.getElementById("menyuTugma").setAttribute("aria-expanded","false");
+
+  window.scrollTo(0,0);
+
+  var bolim = qism[0] || "";
+
+  // Kitoblar kerak bo'lmaydigan sahifalar — darhol chizamiz
+  if(bolim === "haqida"){ ekran.innerHTML = sahifaHaqida(); return; }
+  if(bolim === "aloqa"){  ekran.innerHTML = sahifaAloqa();  return; }
+  if(bolim === "dokon"){  ekran.innerHTML = sahifaDokon();  return; }
+
+  // Qolganlari uchun ma'lumot kerak
+  yuklanmoqdaKorsat();
+
+  kitoblarniYukla().then(function(kitoblar){
+    if(bolim === "kitoblar"){
+      ekran.innerHTML = sahifaKatalog(kitoblar);
+      katalogniIshlat(kitoblar);
+    } else if(bolim === "kitob"){
+      ekran.innerHTML = sahifaKitob(kitoblar, qism[1] || "");
+    } else {
+      ekran.innerHTML = sahifaBosh(kitoblar);
+    }
+  }).catch(function(e){
+    xatoKorsat(e.message);
+  });
+}
+
+/* ---------- ISHGA TUSHIRISH ---------- */
+
+window.addEventListener("hashchange", yonaltir);
+
+document.getElementById("menyuTugma").addEventListener("click", function(){
+  var m = document.getElementById("menyu");
+  var ochiq = m.classList.toggle("ochiq");
+  this.setAttribute("aria-expanded", ochiq ? "true" : "false");
+});
+
+document.getElementById("yil").textContent = new Date().getFullYear();
+
+yonaltir();
+</script>
+
+</body>
+</html>
