@@ -38,6 +38,31 @@
   }
   .chiqish:hover { background: rgba(255,255,255,.25); }
 
+  /* ---------- Bo'lim tugmalari ---------- */
+  nav {
+    background: #fff;
+    border-bottom: 1px solid #e2e4e9;
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  nav button {
+    background: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  nav button:hover { color: #16205c; }
+  nav button.faol { color: #16205c; border-bottom-color: #16205c; }
+
   main { max-width: 1000px; margin: 0 auto; padding: 16px; }
 
   /* ---------- Kirish ---------- */
@@ -79,6 +104,7 @@
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+    font-family: inherit;
   }
   .tugma:hover { background: #0f1745; }
   .tugma:disabled { background: #999; cursor: wait; }
@@ -104,7 +130,6 @@
 
   .yuklanmoqda { text-align: center; padding: 40px 0; color: #666; font-size: 14px; }
 
-  /* Pastda chiqadigan bildirishnoma */
   .bildirish {
     position: fixed;
     left: 50%;
@@ -120,7 +145,7 @@
   }
   .bildirish.qizil { background: #a32020; }
 
-  /* ---------- Ro'yxat sarlavhasi ---------- */
+  /* ---------- Sarlavha ---------- */
   .sarlavha {
     display: flex;
     align-items: center;
@@ -174,7 +199,7 @@
   .belgi:hover { filter: brightness(.94); }
   .belgi:disabled { opacity: .5; cursor: wait; }
 
-  /* ---------- Modal forma ---------- */
+  /* ---------- Modal ---------- */
   .parda {
     position: fixed;
     inset: 0;
@@ -223,10 +248,8 @@
     justify-content: flex-end;
   }
 
-  /* Maydonlar to'ri */
   .tur { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .tur .keng-maydon { grid-column: 1 / -1; }
-  .maydon { margin-bottom: 0; }
 
   .bolim {
     grid-column: 1 / -1;
@@ -242,6 +265,44 @@
   .bolim:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 
   .izoh { font-size: 12px; color: #888; margin-top: 4px; }
+
+  /* ---------- Sozlama kartochkasi ---------- */
+  .karta {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .karta h3 {
+    font-size: 15px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* O'zgargan maydon chetiga sariq chiziq */
+  .ozgargan input, .ozgargan textarea {
+    border-color: #d9a520;
+    background: #fffdf5;
+  }
+
+  /* Saqlash paneli — pastda yopishib turadi */
+  .saqlash-panel {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid #e2e4e9;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 -16px -16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,.05);
+  }
+  .saqlash-panel .holat { font-size: 13px; color: #666; }
 
   /* ---------- Mobil ---------- */
   @media (max-width: 640px) {
@@ -302,35 +363,68 @@
     <button class="chiqish" id="chiqishTugma">Chiqish</button>
   </header>
 
+  <nav>
+    <button id="tabKitoblar" class="faol">Kitoblar</button>
+    <button id="tabSozlama">Sozlamalar</button>
+  </nav>
+
   <main>
-    <div class="sarlavha">
-      <h2>Kitoblar</h2>
-      <div class="ong">
-        <span class="soni" id="soni"></span>
-        <button class="tugma" id="yangiTugma">+ Yangi kitob</button>
+
+    <!-- ---------- KITOBLAR BO'LIMI ---------- -->
+    <div id="bolimKitoblar">
+      <div class="sarlavha">
+        <h2>Kitoblar</h2>
+        <div class="ong">
+          <span class="soni" id="soni"></span>
+          <button class="tugma" id="yangiTugma">+ Yangi kitob</button>
+        </div>
+      </div>
+
+      <div id="yuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
+      <div id="panelXato" class="xato" style="display:none"></div>
+
+      <table id="jadval" style="display:none">
+        <thead>
+          <tr>
+            <th>Nomi</th>
+            <th>Muallif</th>
+            <th>Narx</th>
+            <th>Saytda</th>
+            <th>Holat</th>
+          </tr>
+        </thead>
+        <tbody id="tana"></tbody>
+      </table>
+    </div>
+
+
+    <!-- ---------- SOZLAMALAR BO'LIMI ---------- -->
+    <div id="bolimSozlama" style="display:none">
+      <div class="sarlavha">
+        <h2>Sozlamalar</h2>
+      </div>
+
+      <div id="sozYuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
+      <div id="sozXato" class="xato" style="display:none"></div>
+
+      <div id="sozTana" style="display:none">
+        <!-- Kartochkalar JavaScript orqali chiziladi -->
+      </div>
+
+      <div class="saqlash-panel" id="sozSaqlashPanel" style="display:none">
+        <span class="holat" id="sozHolat">O'zgarish yo'q</span>
+        <div style="display:flex; gap:10px">
+          <button class="tugma ikkilamchi" id="sozBekor">Bekor qilish</button>
+          <button class="tugma" id="sozSaqla">Saqlash</button>
+        </div>
       </div>
     </div>
 
-    <div id="yuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
-    <div id="panelXato" class="xato" style="display:none"></div>
-
-    <table id="jadval" style="display:none">
-      <thead>
-        <tr>
-          <th>Nomi</th>
-          <th>Muallif</th>
-          <th>Narx</th>
-          <th>Saytda</th>
-          <th>Holat</th>
-        </tr>
-      </thead>
-      <tbody id="tana"></tbody>
-    </table>
   </main>
 </div>
 
 
-<!-- ============ TAHRIRLASH FORMASI ============ -->
+<!-- ============ KITOB FORMASI ============ -->
 <div id="parda" class="parda" style="display:none">
   <div class="modal">
 
@@ -344,37 +438,37 @@
 
         <div class="bolim">Asosiy</div>
 
-        <div class="maydon keng-maydon">
+        <div class="keng-maydon">
           <label for="f_nomi">Nomi *</label>
           <input type="text" id="f_nomi">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_muallif">Muallif</label>
           <input type="text" id="f_muallif">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_tarjimon">Tarjimon</label>
           <input type="text" id="f_tarjimon">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_til_asl">Asl tili</label>
           <input type="text" id="f_til_asl">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_janr">Janr</label>
           <input type="text" id="f_janr">
         </div>
 
-        <div class="maydon keng-maydon">
+        <div class="keng-maydon">
           <label for="f_janr_tafsil">Janr (batafsil)</label>
           <input type="text" id="f_janr_tafsil">
         </div>
 
-        <div class="maydon keng-maydon">
+        <div class="keng-maydon">
           <label for="f_tavsif">Tavsif</label>
           <textarea id="f_tavsif"></textarea>
           <div class="izoh">Kitob sahifasida shu matn chiqadi.</div>
@@ -382,22 +476,22 @@
 
         <div class="bolim">Nashr ma'lumotlari</div>
 
-        <div class="maydon">
+        <div>
           <label for="f_sahifa">Sahifa soni</label>
           <input type="number" id="f_sahifa">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_yil">Nashr yili</label>
           <input type="number" id="f_yil">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_isbn">ISBN</label>
           <input type="text" id="f_isbn">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_muqova">Muqova</label>
           <select id="f_muqova">
             <option value="">—</option>
@@ -406,7 +500,7 @@
           </select>
         </div>
 
-        <div class="maydon keng-maydon">
+        <div class="keng-maydon">
           <label for="f_rasm">Rasm fayli</label>
           <input type="text" id="f_rasm">
           <div class="izoh">Masalan: k-001.jpg</div>
@@ -414,18 +508,18 @@
 
         <div class="bolim">Narx va holat</div>
 
-        <div class="maydon">
+        <div>
           <label for="f_narx_chakana">Chakana narx</label>
           <input type="number" id="f_narx_chakana">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_narx_ulgurji">Ulgurji narx</label>
           <input type="number" id="f_narx_ulgurji">
           <div class="izoh">Saytda ko'rinmaydi.</div>
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_holat">Holat</label>
           <select id="f_holat">
             <option value="">—</option>
@@ -435,7 +529,7 @@
           </select>
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_saytda">Saytda ko'rinsinmi</label>
           <select id="f_saytda">
             <option value="ha">ha</option>
@@ -445,17 +539,17 @@
 
         <div class="bolim">Ichki hisob</div>
 
-        <div class="maydon">
+        <div>
           <label for="f_tiraj">Tiraj</label>
           <input type="number" id="f_tiraj">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_sotilgan">Sotilgan</label>
           <input type="number" id="f_sotilgan">
         </div>
 
-        <div class="maydon">
+        <div>
           <label for="f_tartib">Tartib</label>
           <input type="number" id="f_tartib">
           <div class="izoh">Kichik raqam oldinda turadi.</div>
@@ -483,9 +577,6 @@
 var API_URL = "https://script.google.com/macros/s/AKfycbzqzes3O_B1kjZmBjG0aW-UeEtwTKiDh5z5g3JcOFCt-H7pyJI_fbsBh3ENjk2WOzKe/exec";
 var SAQLASH_KALITI = "mfb_token";
 
-// Formadagi maydonlar ro'yxati.
-// Chapda — varaqdagi ustun nomi, o'ngda — input elementining id qismi.
-// Yangi ustun qo'shilsa, faqat shu ro'yxatga va HTML ga qator qo'shiladi.
 var MAYDONLAR = [
   "nomi", "muallif", "tarjimon", "til_asl", "janr", "janr_tafsil",
   "tavsif", "sahifa", "yil", "isbn", "muqova", "rasm",
@@ -493,18 +584,67 @@ var MAYDONLAR = [
   "tiraj", "sotilgan", "tartib"
 ];
 
-// Joriy kitoblar ro'yxati — xotirada saqlanadi
-var kitoblar = [];
+/**
+ * Sozlama kalitlarining guruhlari va ko'rinishi.
+ * tur: "matn" — bir qatorli, "uzun" — katta maydon
+ * Yangi kalit qo'shilsa, faqat shu ro'yxatga qator qo'shiladi.
+ */
+var SOZLAMA_GURUHLARI = [
+  {
+    nom: "Nashriyot",
+    kalitlar: [
+      { kalit: "nashriyot_nomi", nom: "Nashriyot nomi",      tur: "matn" },
+      { kalit: "yuridik_nomi",   nom: "Yuridik nomi",         tur: "matn" },
+      { kalit: "stir",           nom: "STIR",                 tur: "matn" },
+      { kalit: "manzil",         nom: "Manzil",               tur: "matn" },
+      { kalit: "ish_vaqti",      nom: "Ish vaqti",            tur: "matn" }
+    ]
+  },
+  {
+    nom: "Aloqa",
+    kalitlar: [
+      { kalit: "telefon_1", nom: "Telefon 1", tur: "matn" },
+      { kalit: "telefon_2", nom: "Telefon 2", tur: "matn" },
+      { kalit: "email",     nom: "Email",     tur: "matn" }
+    ]
+  },
+  {
+    nom: "Ijtimoiy tarmoqlar",
+    kalitlar: [
+      { kalit: "telegram",    nom: "Telegram",    tur: "matn" },
+      { kalit: "instagram",   nom: "Instagram",   tur: "matn" },
+      { kalit: "facebook",    nom: "Facebook",    tur: "matn" },
+      { kalit: "uzum_dokon",  nom: "Uzum do'kon", tur: "matn" }
+    ]
+  },
+  {
+    nom: "Bank rekvizitlari",
+    kalitlar: [
+      { kalit: "bank_nomi",    nom: "Bank nomi",    tur: "matn" },
+      { kalit: "hisob_raqam",  nom: "Hisob raqam",  tur: "matn" },
+      { kalit: "mfo",          nom: "MFO",          tur: "matn" }
+    ]
+  },
+  {
+    nom: "Sayt matnlari",
+    kalitlar: [
+      { kalit: "yetkazish_matn", nom: "Yetkazib berish", tur: "uzun",
+        izoh: "Aloqa va do'kon sahifalarida chiqadi." },
+      { kalit: "ulgurji_matn",   nom: "Ulgurji savdo",   tur: "uzun",
+        izoh: "Ulgurji hamkorlar uchun sahifada chiqadi." }
+    ]
+  }
+];
 
-// Formada ochilgan kitobning id si. Bo'sh bo'lsa — yangi kitob.
+var kitoblar = [];
 var tahrirdagiId = "";
+
+// Serverdan kelgan asl sozlamalar — o'zgarishni shu bilan solishtiramiz
+var sozlamalarAsl = {};
 
 
 /* ============================================================
    API
-   ============================================================
-   Content-Type ataylab "text/plain" — "application/json"
-   qilinsa brauzer preflight yuboradi va Apps Script uzilib qoladi.
    ============================================================ */
 
 function apiSorov(malumot) {
@@ -516,9 +656,7 @@ function apiSorov(malumot) {
   .then(function (javob) { return javob.json(); });
 }
 
-function tokenOl() {
-  return localStorage.getItem(SAQLASH_KALITI);
-}
+function tokenOl() { return localStorage.getItem(SAQLASH_KALITI); }
 
 
 /* ============================================================
@@ -538,10 +676,7 @@ function kirishniTekshir() {
   var xatoBlok = document.getElementById("kirishXato");
   xatoBlok.style.display = "none";
 
-  if (!token) {
-    xatoniKorsat(xatoBlok, "Token kiritilmadi.");
-    return;
-  }
+  if (!token) { xatoniKorsat(xatoBlok, "Token kiritilmadi."); return; }
 
   kirishTugma.disabled = true;
   kirishTugma.textContent = "Tekshirilmoqda...";
@@ -571,14 +706,40 @@ document.getElementById("chiqishTugma").addEventListener("click", function () {
 
 
 /* ============================================================
-   RO'YXAT
+   BO'LIMLAR
    ============================================================ */
+
+var tabKitoblar = document.getElementById("tabKitoblar");
+var tabSozlama  = document.getElementById("tabSozlama");
+
+tabKitoblar.addEventListener("click", function () { bolimniOch("kitoblar"); });
+tabSozlama.addEventListener("click",  function () { bolimniOch("sozlama"); });
+
+function bolimniOch(nom) {
+  var kitoblarmi = (nom === "kitoblar");
+
+  document.getElementById("bolimKitoblar").style.display = kitoblarmi ? "block" : "none";
+  document.getElementById("bolimSozlama").style.display  = kitoblarmi ? "none"  : "block";
+
+  tabKitoblar.className = kitoblarmi ? "faol" : "";
+  tabSozlama.className  = kitoblarmi ? "" : "faol";
+
+  // Sozlamalar birinchi marta ochilganda yuklaymiz
+  if (!kitoblarmi && Object.keys(sozlamalarAsl).length === 0) {
+    sozlamalarniYukla();
+  }
+}
 
 function panelniOch() {
   document.getElementById("kirishOyna").style.display = "none";
   document.getElementById("panel").style.display = "block";
   kitoblarniYukla();
 }
+
+
+/* ============================================================
+   KITOBLAR RO'YXATI
+   ============================================================ */
 
 function kitoblarniYukla() {
   var yuklanmoqda = document.getElementById("yuklanmoqda");
@@ -616,7 +777,6 @@ function jadvalniChiz() {
   for (var i = 0; i < kitoblar.length; i++) {
     var k = kitoblar[i];
     var qator = document.createElement("tr");
-
     var saytda = String(k.saytda || "").toLowerCase() === "ha";
 
     qator.innerHTML =
@@ -631,10 +791,8 @@ function jadvalniChiz() {
       '</td>' +
       '<td data-nom="Holat">' + xavfsiz(k.holat) + '</td>';
 
-    // Qatorga bosilsa — forma ochiladi
     (function (kitobId) {
       qator.addEventListener("click", function (hodisa) {
-        // Belgi tugmasi bosilgan bo'lsa forma ochilmasin
         if (hodisa.target.classList.contains("belgi")) { return; }
         formaniOch(kitobId);
       });
@@ -643,7 +801,6 @@ function jadvalniChiz() {
     tana.appendChild(qator);
   }
 
-  // "saytda" belgilariga alohida ishlov
   var belgilar = tana.querySelectorAll(".belgi");
   for (var j = 0; j < belgilar.length; j++) {
     belgilar[j].addEventListener("click", function (hodisa) {
@@ -653,18 +810,12 @@ function jadvalniChiz() {
   }
 }
 
-
-/* ============================================================
-   "SAYTDA" NI BIR BOSISHDA O'ZGARTIRISH
-   ============================================================ */
-
 function saytdaAlmashtir(tugma) {
   var id = tugma.getAttribute("data-id");
   var kitob = kitobTop(id);
   if (!kitob) { return; }
 
   var yangi = (String(kitob.saytda).toLowerCase() === "ha") ? "yoq" : "ha";
-
   tugma.disabled = true;
 
   apiSorov({
@@ -675,15 +826,10 @@ function saytdaAlmashtir(tugma) {
   .then(function (natija) {
     tugma.disabled = false;
 
-    if (!natija.ok) {
-      bildirish(natija.xato || "Saqlanmadi.", true);
-      return;
-    }
+    if (!natija.ok) { bildirish(natija.xato || "Saqlanmadi.", true); return; }
 
-    // Xotiradagi nusxani ham yangilaymiz
     kitob.saytda = yangi;
 
-    // Tugmaning ko'rinishini o'zgartiramiz
     if (yangi === "ha") {
       tugma.className = "belgi yashil";
       tugma.textContent = "ha";
@@ -702,7 +848,7 @@ function saytdaAlmashtir(tugma) {
 
 
 /* ============================================================
-   FORMA
+   KITOB FORMASI
    ============================================================ */
 
 var parda = document.getElementById("parda");
@@ -714,21 +860,14 @@ document.getElementById("modalYopish").addEventListener("click", formaniYop);
 document.getElementById("bekorTugma").addEventListener("click", formaniYop);
 document.getElementById("saqlashTugma").addEventListener("click", formaniSaqla);
 
-// Pardaning bo'sh joyiga bosilsa yopilsin
 parda.addEventListener("click", function (hodisa) {
   if (hodisa.target === parda) { formaniYop(); }
 });
 
-// Escape tugmasi
 document.addEventListener("keydown", function (hodisa) {
-  if (hodisa.key === "Escape" && parda.style.display !== "none") {
-    formaniYop();
-  }
+  if (hodisa.key === "Escape" && parda.style.display !== "none") { formaniYop(); }
 });
 
-/**
- * Formani ochadi. id bo'sh bo'lsa — yangi kitob.
- */
 function formaniOch(id) {
   tahrirdagiId = id || "";
   document.getElementById("modalXato").style.display = "none";
@@ -739,7 +878,6 @@ function formaniOch(id) {
   document.getElementById("modalSarlavha").textContent =
     id ? "Kitobni tahrirlash" : "Yangi kitob";
 
-  // Maydonlarni to'ldiramiz
   for (var i = 0; i < MAYDONLAR.length; i++) {
     var nom = MAYDONLAR[i];
     var element = document.getElementById("f_" + nom);
@@ -748,7 +886,6 @@ function formaniOch(id) {
     var qiymat = (kitob[nom] === undefined || kitob[nom] === null)
       ? "" : String(kitob[nom]);
 
-    // Yangi kitob uchun standart qiymatlar
     if (!id) {
       if (nom === "saytda") { qiymat = "yoq"; }
       if (nom === "holat")  { qiymat = "sotuvda"; }
@@ -769,7 +906,6 @@ function formaniYop() {
 function formaniSaqla() {
   var xatoBlok = document.getElementById("modalXato");
   var saqlashTugma = document.getElementById("saqlashTugma");
-
   xatoBlok.style.display = "none";
 
   var nomi = document.getElementById("f_nomi").value.trim();
@@ -778,7 +914,6 @@ function formaniSaqla() {
     return;
   }
 
-  // Formadagi barcha maydonlarni yig'amiz
   var kitob = {};
   if (tahrirdagiId) { kitob.id = tahrirdagiId; }
 
@@ -804,9 +939,6 @@ function formaniSaqla() {
 
       formaniYop();
       bildirish(natija.xabar || "Saqlandi.");
-
-      // Ro'yxatni serverdan qayta olamiz — yangi id va
-      // yaratilgan vaqt shu yerda ko'rinadi
       kitoblarniYukla();
     })
     .catch(function (xato) {
@@ -818,7 +950,223 @@ function formaniSaqla() {
 
 
 /* ============================================================
-   YORDAMCHI FUNKSIYALAR
+   SOZLAMALAR
+   ============================================================ */
+
+function sozlamalarniYukla() {
+  var yuklanmoqda = document.getElementById("sozYuklanmoqda");
+  var xatoBlok    = document.getElementById("sozXato");
+  var tana        = document.getElementById("sozTana");
+  var panel       = document.getElementById("sozSaqlashPanel");
+
+  yuklanmoqda.style.display = "block";
+  xatoBlok.style.display = "none";
+  tana.style.display = "none";
+  panel.style.display = "none";
+
+  apiSorov({ token: tokenOl(), amal: "sozlama" })
+    .then(function (natija) {
+      yuklanmoqda.style.display = "none";
+
+      if (!natija.ok) {
+        xatoniKorsat(xatoBlok, natija.xato || "Ma'lumot olinmadi.");
+        return;
+      }
+
+      sozlamalarAsl = natija.sozlama || {};
+      sozlamalarniChiz();
+
+      tana.style.display = "block";
+      panel.style.display = "flex";
+      sozHolatniYangila();
+    })
+    .catch(function (xato) {
+      yuklanmoqda.style.display = "none";
+      xatoniKorsat(xatoBlok, "Serverga ulanib bo'lmadi: " + xato.message);
+    });
+}
+
+function sozlamalarniChiz() {
+  var tana = document.getElementById("sozTana");
+  tana.innerHTML = "";
+
+  for (var g = 0; g < SOZLAMA_GURUHLARI.length; g++) {
+    var guruh = SOZLAMA_GURUHLARI[g];
+
+    var karta = document.createElement("div");
+    karta.className = "karta";
+
+    var sarlavha = document.createElement("h3");
+    sarlavha.textContent = guruh.nom;
+    karta.appendChild(sarlavha);
+
+    var tur = document.createElement("div");
+    tur.className = "tur";
+
+    for (var i = 0; i < guruh.kalitlar.length; i++) {
+      var m = guruh.kalitlar[i];
+      var uzunmi = (m.tur === "uzun");
+
+      var oram = document.createElement("div");
+      oram.id = "oram_" + m.kalit;
+      if (uzunmi) { oram.className = "keng-maydon"; }
+
+      var yorliq = document.createElement("label");
+      yorliq.setAttribute("for", "s_" + m.kalit);
+      yorliq.textContent = m.nom;
+      oram.appendChild(yorliq);
+
+      var maydon = uzunmi
+        ? document.createElement("textarea")
+        : document.createElement("input");
+
+      if (!uzunmi) { maydon.type = "text"; }
+      if (uzunmi)  { maydon.rows = 7; }
+
+      maydon.id = "s_" + m.kalit;
+      maydon.value = sozlamalarAsl[m.kalit] || "";
+
+      // Har o'zgarishda holatni yangilaymiz
+      maydon.addEventListener("input", sozHolatniYangila);
+
+      oram.appendChild(maydon);
+
+      if (m.izoh) {
+        var izoh = document.createElement("div");
+        izoh.className = "izoh";
+        izoh.textContent = m.izoh;
+        oram.appendChild(izoh);
+      }
+
+      tur.appendChild(oram);
+    }
+
+    karta.appendChild(tur);
+    tana.appendChild(karta);
+  }
+}
+
+/**
+ * O'zgargan kalitlar ro'yxatini qaytaradi.
+ */
+function sozOzgarganlar() {
+  var royxat = [];
+
+  for (var g = 0; g < SOZLAMA_GURUHLARI.length; g++) {
+    var kalitlar = SOZLAMA_GURUHLARI[g].kalitlar;
+
+    for (var i = 0; i < kalitlar.length; i++) {
+      var kalit = kalitlar[i].kalit;
+      var maydon = document.getElementById("s_" + kalit);
+      if (!maydon) { continue; }
+
+      var asl = sozlamalarAsl[kalit] || "";
+      if (maydon.value !== asl) {
+        royxat.push({ kalit: kalit, qiymat: maydon.value });
+      }
+    }
+  }
+
+  return royxat;
+}
+
+/**
+ * Pastdagi panel matnini va sariq belgilarni yangilaydi.
+ */
+function sozHolatniYangila() {
+  var ozgarganlar = sozOzgarganlar();
+  var holat = document.getElementById("sozHolat");
+
+  // Avval hamma belgini olib tashlaymiz
+  for (var g = 0; g < SOZLAMA_GURUHLARI.length; g++) {
+    var kalitlar = SOZLAMA_GURUHLARI[g].kalitlar;
+    for (var i = 0; i < kalitlar.length; i++) {
+      var oram = document.getElementById("oram_" + kalitlar[i].kalit);
+      if (oram) { oram.className = oram.className.replace(" ozgargan", ""); }
+    }
+  }
+
+  // O'zgarganlarga belgi qo'yamiz
+  for (var j = 0; j < ozgarganlar.length; j++) {
+    var o = document.getElementById("oram_" + ozgarganlar[j].kalit);
+    if (o) { o.className += " ozgargan"; }
+  }
+
+  holat.textContent = ozgarganlar.length === 0
+    ? "O'zgarish yo'q"
+    : ozgarganlar.length + " ta maydon o'zgardi";
+}
+
+document.getElementById("sozBekor").addEventListener("click", function () {
+  sozlamalarniChiz();
+  sozHolatniYangila();
+  bildirish("O'zgarishlar bekor qilindi.");
+});
+
+document.getElementById("sozSaqla").addEventListener("click", function () {
+  var ozgarganlar = sozOzgarganlar();
+
+  if (ozgarganlar.length === 0) {
+    bildirish("O'zgarish yo'q.", true);
+    return;
+  }
+
+  var tugma = this;
+  tugma.disabled = true;
+  tugma.textContent = "Saqlanmoqda...";
+
+  // Har bir o'zgargan kalitni ketma-ket yuboramiz.
+  // Bir vaqtda emas — Apps Script qulfi bittadan ishlaydi.
+  var indeks = 0;
+  var xatolar = [];
+
+  function keyingisi() {
+    if (indeks >= ozgarganlar.length) {
+      tugma.disabled = false;
+      tugma.textContent = "Saqlash";
+
+      if (xatolar.length > 0) {
+        bildirish("Ba'zi maydonlar saqlanmadi: " + xatolar.join(", "), true);
+      } else {
+        bildirish(ozgarganlar.length + " ta maydon saqlandi.");
+      }
+
+      // Asl nusxani yangilaymiz
+      for (var i = 0; i < ozgarganlar.length; i++) {
+        if (xatolar.indexOf(ozgarganlar[i].kalit) === -1) {
+          sozlamalarAsl[ozgarganlar[i].kalit] = ozgarganlar[i].qiymat;
+        }
+      }
+
+      sozHolatniYangila();
+      return;
+    }
+
+    var element = ozgarganlar[indeks];
+    indeks++;
+
+    apiSorov({
+      token: tokenOl(),
+      amal: "sozlama_saqla",
+      kalit: element.kalit,
+      qiymat: element.qiymat
+    })
+    .then(function (natija) {
+      if (!natija.ok) { xatolar.push(element.kalit); }
+      keyingisi();
+    })
+    .catch(function () {
+      xatolar.push(element.kalit);
+      keyingisi();
+    });
+  }
+
+  keyingisi();
+});
+
+
+/* ============================================================
+   YORDAMCHI
    ============================================================ */
 
 function kitobTop(id) {
@@ -833,9 +1181,6 @@ function xatoniKorsat(blok, matn) {
   blok.style.display = "block";
 }
 
-/**
- * Pastda 3 soniya turadigan xabar.
- */
 var bildirishVaqt = null;
 
 function bildirish(matn, qizilmi) {
