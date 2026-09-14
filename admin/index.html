@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Qidiruv tizimlari bu sahifani indekslamasin -->
+<meta name="robots" content="noindex, nofollow">
+<title>Factor Books — Admin</title>
+
+<style>
+  /* ---------- Umumiy ---------- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f4f5f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+
+  /* ---------- Yuqori panel ---------- */
+  header {
+    background: #16205c;
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header h1 { font-size: 17px; font-weight: 600; }
+
+  .chiqish {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    border: 0;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .chiqish:hover { background: rgba(255,255,255,.25); }
+
+  /* ---------- Konteyner ---------- */
+  main { max-width: 1000px; margin: 0 auto; padding: 16px; }
+
+  /* ---------- Kirish oynasi ---------- */
+  .kirish {
+    max-width: 380px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 28px 24px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  }
+
+  .kirish h2 { font-size: 19px; margin-bottom: 6px; }
+  .kirish p  { font-size: 13px; color: #666; margin-bottom: 18px; }
+
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+
+  input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+  }
+  input:focus { outline: 2px solid #16205c; border-color: transparent; }
+
+  .tugma {
+    width: 100%;
+    margin-top: 14px;
+    background: #16205c;
+    color: #fff;
+    border: 0;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .tugma:hover { background: #0f1745; }
+  .tugma:disabled { background: #999; cursor: wait; }
+
+  /* ---------- Xabarlar ---------- */
+  .xato {
+    background: #fdecec;
+    border: 1px solid #f5b5b5;
+    color: #a32020;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+
+  .yuklanmoqda {
+    text-align: center;
+    padding: 40px 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  /* ---------- Kitoblar ro'yxati ---------- */
+  .sarlavha {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .sarlavha h2 { font-size: 18px; }
+  .sarlavha span { font-size: 13px; color: #666; }
+
+  table {
+    width: 100%;
+    background: #fff;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+
+  th {
+    background: #eceef3;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    color: #555;
+  }
+
+  td {
+    padding: 11px 12px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+  }
+
+  .belgi {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .yashil { background: #e3f5e8; color: #1c6b34; }
+  .kulrang { background: #ededed; color: #666; }
+
+  /* ---------- Mobil ---------- */
+  @media (max-width: 640px) {
+    /* Jadval o'rniga kartochka ko'rinishi */
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+
+    tr {
+      background: #fff;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      padding: 6px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+
+    td {
+      border: 0;
+      padding: 5px 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Har katakcha oldiga ustun nomini chiqaramiz */
+    td::before {
+      content: attr(data-nom);
+      font-size: 12px;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    td:first-child { font-weight: 600; padding-top: 10px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============ KIRISH OYNASI ============ -->
+<div id="kirishOyna" class="kirish">
+  <h2>Factor Books</h2>
+  <p>Admin panelga kirish uchun tokenni kiriting.</p>
+
+  <label for="token">Token</label>
+  <input type="password" id="token" autocomplete="current-password">
+
+  <button class="tugma" id="kirishTugma">Kirish</button>
+
+  <div id="kirishXato" class="xato" style="display:none"></div>
+</div>
+
+
+<!-- ============ ASOSIY PANEL ============ -->
+<div id="panel" style="display:none">
+
+  <header>
+    <h1>Factor Books — Admin</h1>
+    <button class="chiqish" id="chiqishTugma">Chiqish</button>
+  </header>
+
+  <main>
+    <div class="sarlavha">
+      <h2>Kitoblar</h2>
+      <span id="soni"></span>
+    </div>
+
+    <div id="yuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
+    <div id="panelXato" class="xato" style="display:none"></div>
+
+    <table id="jadval" style="display:none">
+      <thead>
+        <tr>
+          <th>Nomi</th>
+          <th>Muallif</th>
+          <th>Narx</th>
+          <th>Saytda</th>
+          <th>Holat</th>
+        </tr>
+      </thead>
+      <tbody id="tana"></tbody>
+    </table>
+  </main>
+</div>
+
+
+<script>
+/* ============================================================
+   SOZLAMALAR
+   ============================================================ */
+
+// Apps Script web app manzili
+var API_URL = "https://script.google.com/macros/s/AKfycbzqzes3O_B1kjZmBjG0aW-UeEtwTKiDh5z5g3JcOFCt-H7pyJI_fbsBh3ENjk2WOzKe/exec";
+
+// Token brauzerda shu nom ostida saqlanadi
+var SAQLASH_KALITI = "mfb_token";
+
+
+/* ============================================================
+   API BILAN ALOQA
+   ============================================================
+   DIQQAT: Content-Type ataylab "text/plain".
+   "application/json" qilinsa brauzer preflight so'rovi yuboradi,
+   Apps Script unga javob bermaydi va ulanish uziladi.
+   ============================================================ */
+
+function apiSorov(malumot) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(malumot)
+  })
+  .then(function (javob) { return javob.json(); });
+}
+
+
+/* ============================================================
+   KIRISH
+   ============================================================ */
+
+var kirishTugma = document.getElementById("kirishTugma");
+var tokenMaydon = document.getElementById("token");
+
+kirishTugma.addEventListener("click", kirishniTekshir);
+
+// Enter bosilganda ham kirsin
+tokenMaydon.addEventListener("keydown", function (h) {
+  if (h.key === "Enter") { kirishniTekshir(); }
+});
+
+function kirishniTekshir() {
+  var token = tokenMaydon.value.trim();
+  var xatoBlok = document.getElementById("kirishXato");
+
+  xatoBlok.style.display = "none";
+
+  if (!token) {
+    xatoniKorsat(xatoBlok, "Token kiritilmadi.");
+    return;
+  }
+
+  kirishTugma.disabled = true;
+  kirishTugma.textContent = "Tekshirilmoqda...";
+
+  apiSorov({ token: token, amal: "tekshir" })
+    .then(function (natija) {
+      if (natija.ok) {
+        // Tokenni brauzerda saqlaymiz — keyingi safar so'ralmaydi
+        localStorage.setItem(SAQLASH_KALITI, token);
+        panelniOch();
+      } else {
+        xatoniKorsat(xatoBlok, natija.xato || "Token noto'g'ri.");
+      }
+    })
+    .catch(function (xato) {
+      xatoniKorsat(xatoBlok, "Serverga ulanib bo'lmadi: " + xato.message);
+    })
+    .then(function () {
+      kirishTugma.disabled = false;
+      kirishTugma.textContent = "Kirish";
+    });
+}
+
+function xatoniKorsat(blok, matn) {
+  blok.textContent = matn;
+  blok.style.display = "block";
+}
+
+
+/* ============================================================
+   CHIQISH
+   ============================================================ */
+
+document.getElementById("chiqishTugma").addEventListener("click", function () {
+  localStorage.removeItem(SAQLASH_KALITI);
+  location.reload();
+});
+
+
+/* ============================================================
+   PANEL
+   ============================================================ */
+
+function panelniOch() {
+  document.getElementById("kirishOyna").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+  kitoblarniYukla();
+}
+
+function kitoblarniYukla() {
+  var token = localStorage.getItem(SAQLASH_KALITI);
+
+  var yuklanmoqda = document.getElementById("yuklanmoqda");
+  var panelXato   = document.getElementById("panelXato");
+  var jadval      = document.getElementById("jadval");
+
+  yuklanmoqda.style.display = "block";
+  panelXato.style.display = "none";
+  jadval.style.display = "none";
+
+  apiSorov({ token: token, amal: "kitoblar" })
+    .then(function (natija) {
+      yuklanmoqda.style.display = "none";
+
+      if (!natija.ok) {
+        xatoniKorsat(panelXato, natija.xato || "Ma'lumot olinmadi.");
+        return;
+      }
+
+      jadvalniChiz(natija.kitoblar);
+      jadval.style.display = "table";
+      document.getElementById("soni").textContent = natija.kitoblar.length + " ta";
+    })
+    .catch(function (xato) {
+      yuklanmoqda.style.display = "none";
+      xatoniKorsat(panelXato, "Serverga ulanib bo'lmadi: " + xato.message);
+    });
+}
+
+function jadvalniChiz(kitoblar) {
+  var tana = document.getElementById("tana");
+  tana.innerHTML = "";
+
+  for (var i = 0; i < kitoblar.length; i++) {
+    var k = kitoblar[i];
+    var qator = document.createElement("tr");
+
+    // Saytda ko'rinadimi — rangli belgi
+    var saytda = String(k.saytda || "").toLowerCase() === "ha";
+    var belgi = saytda
+      ? '<span class="belgi yashil">ha</span>'
+      : '<span class="belgi kulrang">yo\'q</span>';
+
+    qator.innerHTML =
+      '<td data-nom="Nomi">'    + xavfsiz(k.nomi)    + '</td>' +
+      '<td data-nom="Muallif">' + xavfsiz(k.muallif) + '</td>' +
+      '<td data-nom="Narx">'    + narxFormat(k.narx_chakana) + '</td>' +
+      '<td data-nom="Saytda">'  + belgi + '</td>' +
+      '<td data-nom="Holat">'   + xavfsiz(k.holat)   + '</td>';
+
+    tana.appendChild(qator);
+  }
+}
+
+/**
+ * Matndagi HTML belgilarini zararsizlantiradi.
+ */
+function xavfsiz(matn) {
+  var d = document.createElement("div");
+  d.textContent = (matn === undefined || matn === null) ? "" : String(matn);
+  return d.innerHTML;
+}
+
+/**
+ * 65000 -> "65 000 so'm"
+ */
+function narxFormat(qiymat) {
+  var son = parseInt(qiymat, 10);
+  if (isNaN(son)) { return "—"; }
+  return son.toLocaleString("ru-RU").replace(/,/g, " ") + " so'm";
+}
+
+
+/* ============================================================
+   SAHIFA OCHILGANDA
+   ============================================================ */
+
+(function () {
+  // Token allaqachon saqlangan bo'lsa — to'g'ridan-to'g'ri panelga
+  if (localStorage.getItem(SAQLASH_KALITI)) {
+    panelniOch();
+  }
+})();
+</script>
+
+</body>
+</html>
