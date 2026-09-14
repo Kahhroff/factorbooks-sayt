@@ -282,13 +282,11 @@
     border-bottom: 1px solid #eee;
   }
 
-  /* O'zgargan maydon chetiga sariq chiziq */
   .ozgargan input, .ozgargan textarea {
     border-color: #d9a520;
     background: #fffdf5;
   }
 
-  /* Saqlash paneli — pastda yopishib turadi */
   .saqlash-panel {
     position: sticky;
     bottom: 0;
@@ -370,7 +368,7 @@
 
   <main>
 
-    <!-- ---------- KITOBLAR BO'LIMI ---------- -->
+    <!-- ---------- KITOBLAR ---------- -->
     <div id="bolimKitoblar">
       <div class="sarlavha">
         <h2>Kitoblar</h2>
@@ -398,7 +396,7 @@
     </div>
 
 
-    <!-- ---------- SOZLAMALAR BO'LIMI ---------- -->
+    <!-- ---------- SOZLAMALAR ---------- -->
     <div id="bolimSozlama" style="display:none">
       <div class="sarlavha">
         <h2>Sozlamalar</h2>
@@ -407,9 +405,7 @@
       <div id="sozYuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
       <div id="sozXato" class="xato" style="display:none"></div>
 
-      <div id="sozTana" style="display:none">
-        <!-- Kartochkalar JavaScript orqali chiziladi -->
-      </div>
+      <div id="sozTana" style="display:none"></div>
 
       <div class="saqlash-panel" id="sozSaqlashPanel" style="display:none">
         <span class="holat" id="sozHolat">O'zgarish yo'q</span>
@@ -585,19 +581,19 @@ var MAYDONLAR = [
 ];
 
 /**
- * Sozlama kalitlarining guruhlari va ko'rinishi.
- * tur: "matn" — bir qatorli, "uzun" — katta maydon
+ * Sozlama kalitlarining guruhlari.
+ * tur: "matn" — bir qatorli, "uzun" — katta maydon.
  * Yangi kalit qo'shilsa, faqat shu ro'yxatga qator qo'shiladi.
  */
 var SOZLAMA_GURUHLARI = [
   {
     nom: "Nashriyot",
     kalitlar: [
-      { kalit: "nashriyot_nomi", nom: "Nashriyot nomi",      tur: "matn" },
-      { kalit: "yuridik_nomi",   nom: "Yuridik nomi",         tur: "matn" },
-      { kalit: "stir",           nom: "STIR",                 tur: "matn" },
-      { kalit: "manzil",         nom: "Manzil",               tur: "matn" },
-      { kalit: "ish_vaqti",      nom: "Ish vaqti",            tur: "matn" }
+      { kalit: "nashriyot_nomi", nom: "Nashriyot nomi", tur: "matn" },
+      { kalit: "yuridik_nomi",   nom: "Yuridik nomi",   tur: "matn" },
+      { kalit: "stir",           nom: "STIR",           tur: "matn" },
+      { kalit: "manzil",         nom: "Manzil",         tur: "uzun" },
+      { kalit: "ish_vaqti",      nom: "Ish vaqti",      tur: "matn" }
     ]
   },
   {
@@ -611,18 +607,18 @@ var SOZLAMA_GURUHLARI = [
   {
     nom: "Ijtimoiy tarmoqlar",
     kalitlar: [
-      { kalit: "telegram",    nom: "Telegram",    tur: "matn" },
-      { kalit: "instagram",   nom: "Instagram",   tur: "matn" },
-      { kalit: "facebook",    nom: "Facebook",    tur: "matn" },
-      { kalit: "uzum_dokon",  nom: "Uzum do'kon", tur: "matn" }
+      { kalit: "telegram",   nom: "Telegram",    tur: "matn" },
+      { kalit: "instagram",  nom: "Instagram",   tur: "matn" },
+      { kalit: "facebook",   nom: "Facebook",    tur: "matn" },
+      { kalit: "uzum_dokon", nom: "Uzum do'kon", tur: "matn" }
     ]
   },
   {
     nom: "Bank rekvizitlari",
     kalitlar: [
-      { kalit: "bank_nomi",    nom: "Bank nomi",    tur: "matn" },
-      { kalit: "hisob_raqam",  nom: "Hisob raqam",  tur: "matn" },
-      { kalit: "mfo",          nom: "MFO",          tur: "matn" }
+      { kalit: "bank_nomi",   nom: "Bank nomi",   tur: "matn" },
+      { kalit: "hisob_raqam", nom: "Hisob raqam", tur: "matn" },
+      { kalit: "mfo",         nom: "MFO",         tur: "matn" }
     ]
   },
   {
@@ -638,13 +634,14 @@ var SOZLAMA_GURUHLARI = [
 
 var kitoblar = [];
 var tahrirdagiId = "";
-
-// Serverdan kelgan asl sozlamalar — o'zgarishni shu bilan solishtiramiz
 var sozlamalarAsl = {};
 
 
 /* ============================================================
    API
+   ============================================================
+   Content-Type ataylab "text/plain" — "application/json"
+   qilinsa brauzer preflight yuboradi va Apps Script uziladi.
    ============================================================ */
 
 function apiSorov(malumot) {
@@ -657,6 +654,24 @@ function apiSorov(malumot) {
 }
 
 function tokenOl() { return localStorage.getItem(SAQLASH_KALITI); }
+
+
+/* ============================================================
+   MATNNI TEKISLASH
+   ============================================================
+   Brauzer maydonlari qator uzilishi belgisini o'zgartiradi:
+   Sheets'dan \r\n kelsa, textarea uni \n ga aylantiradi.
+   Solishtirishdan oldin ikkala tomonni bir ko'rinishga
+   keltirmasak, o'zgarmagan maydon ham "o'zgardi" deb chiqadi.
+   ============================================================ */
+
+function matnTekisla(matn) {
+  if (matn === undefined || matn === null) { return ""; }
+  return String(matn)
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .replace(/\s+$/, "");
+}
 
 
 /* ============================================================
@@ -724,7 +739,6 @@ function bolimniOch(nom) {
   tabKitoblar.className = kitoblarmi ? "faol" : "";
   tabSozlama.className  = kitoblarmi ? "" : "faol";
 
-  // Sozlamalar birinchi marta ochilganda yuklaymiz
   if (!kitoblarmi && Object.keys(sozlamalarAsl).length === 0) {
     sozlamalarniYukla();
   }
@@ -738,7 +752,7 @@ function panelniOch() {
 
 
 /* ============================================================
-   KITOBLAR RO'YXATI
+   KITOBLAR
    ============================================================ */
 
 function kitoblarniYukla() {
@@ -1024,9 +1038,7 @@ function sozlamalarniChiz() {
       if (uzunmi)  { maydon.rows = 7; }
 
       maydon.id = "s_" + m.kalit;
-      maydon.value = sozlamalarAsl[m.kalit] || "";
-
-      // Har o'zgarishda holatni yangilaymiz
+      maydon.value = matnTekisla(sozlamalarAsl[m.kalit]);
       maydon.addEventListener("input", sozHolatniYangila);
 
       oram.appendChild(maydon);
@@ -1047,7 +1059,8 @@ function sozlamalarniChiz() {
 }
 
 /**
- * O'zgargan kalitlar ro'yxatini qaytaradi.
+ * O'zgargan kalitlar ro'yxati.
+ * Solishtirish matnTekisla orqali — soxta o'zgarish chiqmasin.
  */
 function sozOzgarganlar() {
   var royxat = [];
@@ -1060,9 +1073,11 @@ function sozOzgarganlar() {
       var maydon = document.getElementById("s_" + kalit);
       if (!maydon) { continue; }
 
-      var asl = sozlamalarAsl[kalit] || "";
-      if (maydon.value !== asl) {
-        royxat.push({ kalit: kalit, qiymat: maydon.value });
+      var asl   = matnTekisla(sozlamalarAsl[kalit]);
+      var yangi = matnTekisla(maydon.value);
+
+      if (yangi !== asl) {
+        royxat.push({ kalit: kalit, qiymat: yangi });
       }
     }
   }
@@ -1070,14 +1085,10 @@ function sozOzgarganlar() {
   return royxat;
 }
 
-/**
- * Pastdagi panel matnini va sariq belgilarni yangilaydi.
- */
 function sozHolatniYangila() {
   var ozgarganlar = sozOzgarganlar();
   var holat = document.getElementById("sozHolat");
 
-  // Avval hamma belgini olib tashlaymiz
   for (var g = 0; g < SOZLAMA_GURUHLARI.length; g++) {
     var kalitlar = SOZLAMA_GURUHLARI[g].kalitlar;
     for (var i = 0; i < kalitlar.length; i++) {
@@ -1086,7 +1097,6 @@ function sozHolatniYangila() {
     }
   }
 
-  // O'zgarganlarga belgi qo'yamiz
   for (var j = 0; j < ozgarganlar.length; j++) {
     var o = document.getElementById("oram_" + ozgarganlar[j].kalit);
     if (o) { o.className += " ozgargan"; }
@@ -1115,8 +1125,7 @@ document.getElementById("sozSaqla").addEventListener("click", function () {
   tugma.disabled = true;
   tugma.textContent = "Saqlanmoqda...";
 
-  // Har bir o'zgargan kalitni ketma-ket yuboramiz.
-  // Bir vaqtda emas — Apps Script qulfi bittadan ishlaydi.
+  // Ketma-ket yuboramiz — Apps Script qulfi bittadan ishlaydi
   var indeks = 0;
   var xatolar = [];
 
@@ -1125,17 +1134,16 @@ document.getElementById("sozSaqla").addEventListener("click", function () {
       tugma.disabled = false;
       tugma.textContent = "Saqlash";
 
-      if (xatolar.length > 0) {
-        bildirish("Ba'zi maydonlar saqlanmadi: " + xatolar.join(", "), true);
-      } else {
-        bildirish(ozgarganlar.length + " ta maydon saqlandi.");
-      }
-
-      // Asl nusxani yangilaymiz
       for (var i = 0; i < ozgarganlar.length; i++) {
         if (xatolar.indexOf(ozgarganlar[i].kalit) === -1) {
           sozlamalarAsl[ozgarganlar[i].kalit] = ozgarganlar[i].qiymat;
         }
+      }
+
+      if (xatolar.length > 0) {
+        bildirish("Saqlanmadi: " + xatolar.join(", "), true);
+      } else {
+        bildirish(ozgarganlar.length + " ta maydon saqlandi.");
       }
 
       sozHolatniYangila();
