@@ -80,7 +80,7 @@
   label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
 
   input[type="password"], input[type="text"], input[type="number"],
-  select, textarea {
+  input[type="date"], select, textarea {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
@@ -129,6 +129,16 @@
   }
 
   .yuklanmoqda { text-align: center; padding: 40px 0; color: #666; font-size: 14px; }
+
+  .bosh-royxat {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
 
   .bildirish {
     position: fixed;
@@ -198,6 +208,16 @@
   .kulrang { background: #ededed; color: #666; }
   .belgi:hover { filter: brightness(.94); }
   .belgi:disabled { opacity: .5; cursor: wait; }
+
+  /* Tur yorlig'i — bosilmaydi */
+  .tur-belgi {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    background: #eef1f8;
+    color: #40507f;
+  }
 
   /* ---------- Modal ---------- */
   .parda {
@@ -363,6 +383,7 @@
 
   <nav>
     <button id="tabKitoblar" class="faol">Kitoblar</button>
+    <button id="tabElonlar">E'lonlar</button>
     <button id="tabSozlama">Sozlamalar</button>
   </nav>
 
@@ -392,6 +413,37 @@
           </tr>
         </thead>
         <tbody id="tana"></tbody>
+      </table>
+    </div>
+
+
+    <!-- ---------- E'LONLAR ---------- -->
+    <div id="bolimElonlar" style="display:none">
+      <div class="sarlavha">
+        <h2>E'lonlar</h2>
+        <div class="ong">
+          <span class="soni" id="elonSoni"></span>
+          <button class="tugma" id="yangiElonTugma">+ Yangi e'lon</button>
+        </div>
+      </div>
+
+      <div id="elonYuklanmoqda" class="yuklanmoqda">Yuklanmoqda...</div>
+      <div id="elonXato" class="xato" style="display:none"></div>
+      <div id="elonBosh" class="bosh-royxat" style="display:none">
+        Hali e'lon qo'shilmagan.
+      </div>
+
+      <table id="elonJadval" style="display:none">
+        <thead>
+          <tr>
+            <th>Sarlavha</th>
+            <th>Turi</th>
+            <th>Sana</th>
+            <th>Faol</th>
+            <th>Tartib</th>
+          </tr>
+        </thead>
+        <tbody id="elonTana"></tbody>
       </table>
     </div>
 
@@ -565,6 +617,77 @@
 </div>
 
 
+<!-- ============ E'LON FORMASI ============ -->
+<div id="elonParda" class="parda" style="display:none">
+  <div class="modal">
+
+    <div class="modal-bosh">
+      <h3 id="elonModalSarlavha">E'lonni tahrirlash</h3>
+      <button class="yopish" id="elonModalYopish">&times;</button>
+    </div>
+
+    <div class="modal-tana">
+      <div class="tur">
+
+        <div class="keng-maydon">
+          <label for="e_sarlavha">Sarlavha *</label>
+          <input type="text" e_id="x" id="e_sarlavha">
+        </div>
+
+        <div>
+          <label for="e_turi">Turi</label>
+          <select id="e_turi">
+            <option value="yangilik">yangilik</option>
+            <option value="rejadagi_kitob">rejadagi kitob</option>
+            <option value="aksiya">aksiya</option>
+            <option value="tadbir">tadbir</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="e_sana">Sana</label>
+          <input type="date" id="e_sana">
+        </div>
+
+        <div class="keng-maydon">
+          <label for="e_matn">Matn</label>
+          <textarea id="e_matn" rows="8"></textarea>
+        </div>
+
+        <div class="keng-maydon">
+          <label for="e_rasm">Rasm fayli</label>
+          <input type="text" id="e_rasm">
+          <div class="izoh">Masalan: e-001.jpg</div>
+        </div>
+
+        <div>
+          <label for="e_faol">Saytda ko'rinsinmi</label>
+          <select id="e_faol">
+            <option value="ha">ha</option>
+            <option value="yoq">yo'q</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="e_tartib">Tartib</label>
+          <input type="number" id="e_tartib">
+          <div class="izoh">Kichik raqam oldinda turadi.</div>
+        </div>
+
+      </div>
+
+      <div id="elonModalXato" class="xato" style="display:none"></div>
+    </div>
+
+    <div class="modal-oyoq">
+      <button class="tugma ikkilamchi" id="elonBekorTugma">Bekor qilish</button>
+      <button class="tugma" id="elonSaqlashTugma">Saqlash</button>
+    </div>
+
+  </div>
+</div>
+
+
 <script>
 /* ============================================================
    SOZLAMALAR
@@ -580,11 +703,11 @@ var MAYDONLAR = [
   "tiraj", "sotilgan", "tartib"
 ];
 
-/**
- * Sozlama kalitlarining guruhlari.
- * tur: "matn" — bir qatorli, "uzun" — katta maydon.
- * Yangi kalit qo'shilsa, faqat shu ro'yxatga qator qo'shiladi.
- */
+// E'lon formasidagi maydonlar
+var ELON_MAYDONLAR = [
+  "sarlavha", "matn", "rasm", "sana", "turi", "faol", "tartib"
+];
+
 var SOZLAMA_GURUHLARI = [
   {
     nom: "Nashriyot",
@@ -633,8 +756,13 @@ var SOZLAMA_GURUHLARI = [
 ];
 
 var kitoblar = [];
+var elonlar = [];
 var tahrirdagiId = "";
+var elonTahrirdagiId = "";
 var sozlamalarAsl = {};
+
+// E'lonlar birinchi marta ochilganda yuklansin
+var elonlarYuklandi = false;
 
 
 /* ============================================================
@@ -659,8 +787,7 @@ function tokenOl() { return localStorage.getItem(SAQLASH_KALITI); }
 /* ============================================================
    MATNNI TEKISLASH
    ============================================================
-   Brauzer maydonlari qator uzilishi belgisini o'zgartiradi:
-   Sheets'dan \r\n kelsa, textarea uni \n ga aylantiradi.
+   Brauzer maydonlari qator uzilishi belgisini o'zgartiradi.
    Solishtirishdan oldin ikkala tomonni bir ko'rinishga
    keltirmasak, o'zgarmagan maydon ham "o'zgardi" deb chiqadi.
    ============================================================ */
@@ -725,23 +852,25 @@ document.getElementById("chiqishTugma").addEventListener("click", function () {
    ============================================================ */
 
 var tabKitoblar = document.getElementById("tabKitoblar");
+var tabElonlar  = document.getElementById("tabElonlar");
 var tabSozlama  = document.getElementById("tabSozlama");
 
 tabKitoblar.addEventListener("click", function () { bolimniOch("kitoblar"); });
+tabElonlar.addEventListener("click",  function () { bolimniOch("elonlar"); });
 tabSozlama.addEventListener("click",  function () { bolimniOch("sozlama"); });
 
 function bolimniOch(nom) {
-  var kitoblarmi = (nom === "kitoblar");
+  document.getElementById("bolimKitoblar").style.display = (nom === "kitoblar") ? "block" : "none";
+  document.getElementById("bolimElonlar").style.display  = (nom === "elonlar")  ? "block" : "none";
+  document.getElementById("bolimSozlama").style.display  = (nom === "sozlama")  ? "block" : "none";
 
-  document.getElementById("bolimKitoblar").style.display = kitoblarmi ? "block" : "none";
-  document.getElementById("bolimSozlama").style.display  = kitoblarmi ? "none"  : "block";
+  tabKitoblar.className = (nom === "kitoblar") ? "faol" : "";
+  tabElonlar.className  = (nom === "elonlar")  ? "faol" : "";
+  tabSozlama.className  = (nom === "sozlama")  ? "faol" : "";
 
-  tabKitoblar.className = kitoblarmi ? "faol" : "";
-  tabSozlama.className  = kitoblarmi ? "" : "faol";
-
-  if (!kitoblarmi && Object.keys(sozlamalarAsl).length === 0) {
-    sozlamalarniYukla();
-  }
+  // Har bo'lim birinchi ochilishida bir marta yuklanadi
+  if (nom === "elonlar" && !elonlarYuklandi) { elonlarniYukla(); }
+  if (nom === "sozlama" && Object.keys(sozlamalarAsl).length === 0) { sozlamalarniYukla(); }
 }
 
 function panelniOch() {
@@ -878,10 +1007,6 @@ parda.addEventListener("click", function (hodisa) {
   if (hodisa.target === parda) { formaniYop(); }
 });
 
-document.addEventListener("keydown", function (hodisa) {
-  if (hodisa.key === "Escape" && parda.style.display !== "none") { formaniYop(); }
-});
-
 function formaniOch(id) {
   tahrirdagiId = id || "";
   document.getElementById("modalXato").style.display = "none";
@@ -897,8 +1022,7 @@ function formaniOch(id) {
     var element = document.getElementById("f_" + nom);
     if (!element) { continue; }
 
-    var qiymat = (kitob[nom] === undefined || kitob[nom] === null)
-      ? "" : String(kitob[nom]);
+    var qiymat = matnTekisla(kitob[nom]);
 
     if (!id) {
       if (nom === "saytda") { qiymat = "yoq"; }
@@ -958,6 +1082,238 @@ function formaniSaqla() {
     .catch(function (xato) {
       saqlashTugma.disabled = false;
       saqlashTugma.textContent = "Saqlash";
+      xatoniKorsat(xatoBlok, "Serverga ulanib bo'lmadi: " + xato.message);
+    });
+}
+
+
+/* ============================================================
+   E'LONLAR RO'YXATI
+   ============================================================ */
+
+function elonlarniYukla() {
+  var yuklanmoqda = document.getElementById("elonYuklanmoqda");
+  var xatoBlok    = document.getElementById("elonXato");
+  var jadval      = document.getElementById("elonJadval");
+  var bosh        = document.getElementById("elonBosh");
+
+  yuklanmoqda.style.display = "block";
+  xatoBlok.style.display = "none";
+  jadval.style.display = "none";
+  bosh.style.display = "none";
+
+  apiSorov({ token: tokenOl(), amal: "elonlar" })
+    .then(function (natija) {
+      yuklanmoqda.style.display = "none";
+      elonlarYuklandi = true;
+
+      if (!natija.ok) {
+        xatoniKorsat(xatoBlok, natija.xato || "Ma'lumot olinmadi.");
+        return;
+      }
+
+      elonlar = natija.elonlar || [];
+      document.getElementById("elonSoni").textContent = elonlar.length + " ta";
+
+      if (elonlar.length === 0) {
+        bosh.style.display = "block";
+        return;
+      }
+
+      elonJadvalniChiz();
+      jadval.style.display = "table";
+    })
+    .catch(function (xato) {
+      yuklanmoqda.style.display = "none";
+      xatoniKorsat(xatoBlok, "Serverga ulanib bo'lmadi: " + xato.message);
+    });
+}
+
+function elonJadvalniChiz() {
+  var tana = document.getElementById("elonTana");
+  tana.innerHTML = "";
+
+  // Tartib bo'yicha saralaymiz — panel saytdagi tartibni aks ettirsin
+  elonlar.sort(function (a, b) {
+    var x = parseInt(a.tartib, 10); if (isNaN(x)) { x = 99999; }
+    var y = parseInt(b.tartib, 10); if (isNaN(y)) { y = 99999; }
+    return x - y;
+  });
+
+  for (var i = 0; i < elonlar.length; i++) {
+    var e = elonlar[i];
+    var qator = document.createElement("tr");
+    var faolmi = String(e.faol || "").toLowerCase() === "ha";
+
+    qator.innerHTML =
+      '<td data-nom="Sarlavha">' + xavfsiz(e.sarlavha) + '</td>' +
+      '<td data-nom="Turi"><span class="tur-belgi">' +
+        xavfsiz(turNomi(e.turi)) + '</span></td>' +
+      '<td data-nom="Sana">' + (xavfsiz(e.sana) || "—") + '</td>' +
+      '<td data-nom="Faol">' +
+        '<button class="belgi ' + (faolmi ? 'yashil' : 'kulrang') + '" ' +
+                'data-id="' + xavfsiz(e.id) + '">' +
+          (faolmi ? 'ha' : "yo'q") +
+        '</button>' +
+      '</td>' +
+      '<td data-nom="Tartib">' + (xavfsiz(e.tartib) || "—") + '</td>';
+
+    (function (elonId) {
+      qator.addEventListener("click", function (hodisa) {
+        if (hodisa.target.classList.contains("belgi")) { return; }
+        elonFormaniOch(elonId);
+      });
+    })(e.id);
+
+    tana.appendChild(qator);
+  }
+
+  var belgilar = tana.querySelectorAll(".belgi");
+  for (var j = 0; j < belgilar.length; j++) {
+    belgilar[j].addEventListener("click", function (hodisa) {
+      hodisa.stopPropagation();
+      elonFaolAlmashtir(this);
+    });
+  }
+}
+
+/**
+ * "rejadagi_kitob" -> "rejadagi kitob"
+ */
+function turNomi(turi) {
+  return String(turi || "—").replace(/_/g, " ");
+}
+
+function elonFaolAlmashtir(tugma) {
+  var id = tugma.getAttribute("data-id");
+  var elon = elonTop(id);
+  if (!elon) { return; }
+
+  var yangi = (String(elon.faol).toLowerCase() === "ha") ? "yoq" : "ha";
+  tugma.disabled = true;
+
+  apiSorov({
+    token: tokenOl(),
+    amal: "elon_saqla",
+    elon: { id: id, sarlavha: elon.sarlavha, faol: yangi }
+  })
+  .then(function (natija) {
+    tugma.disabled = false;
+
+    if (!natija.ok) { bildirish(natija.xato || "Saqlanmadi.", true); return; }
+
+    elon.faol = yangi;
+
+    if (yangi === "ha") {
+      tugma.className = "belgi yashil";
+      tugma.textContent = "ha";
+      bildirish("E'lon saytda ko'rinadi.");
+    } else {
+      tugma.className = "belgi kulrang";
+      tugma.textContent = "yo'q";
+      bildirish("E'lon yashirildi.");
+    }
+  })
+  .catch(function (xato) {
+    tugma.disabled = false;
+    bildirish("Ulanish xatosi: " + xato.message, true);
+  });
+}
+
+
+/* ============================================================
+   E'LON FORMASI
+   ============================================================ */
+
+var elonParda = document.getElementById("elonParda");
+
+document.getElementById("yangiElonTugma").addEventListener("click", function () {
+  elonFormaniOch("");
+});
+document.getElementById("elonModalYopish").addEventListener("click", elonFormaniYop);
+document.getElementById("elonBekorTugma").addEventListener("click", elonFormaniYop);
+document.getElementById("elonSaqlashTugma").addEventListener("click", elonFormaniSaqla);
+
+elonParda.addEventListener("click", function (hodisa) {
+  if (hodisa.target === elonParda) { elonFormaniYop(); }
+});
+
+function elonFormaniOch(id) {
+  elonTahrirdagiId = id || "";
+  document.getElementById("elonModalXato").style.display = "none";
+
+  var elon = id ? elonTop(id) : {};
+  if (!elon) { elon = {}; }
+
+  document.getElementById("elonModalSarlavha").textContent =
+    id ? "E'lonni tahrirlash" : "Yangi e'lon";
+
+  for (var i = 0; i < ELON_MAYDONLAR.length; i++) {
+    var nom = ELON_MAYDONLAR[i];
+    var element = document.getElementById("e_" + nom);
+    if (!element) { continue; }
+
+    var qiymat = matnTekisla(elon[nom]);
+
+    if (!id) {
+      if (nom === "faol") { qiymat = "yoq"; }
+      if (nom === "turi") { qiymat = "yangilik"; }
+      if (nom === "sana") { qiymat = bugungiSana(); }
+    }
+
+    element.value = qiymat;
+  }
+
+  elonParda.style.display = "flex";
+  document.getElementById("e_sarlavha").focus();
+}
+
+function elonFormaniYop() {
+  elonParda.style.display = "none";
+  elonTahrirdagiId = "";
+}
+
+function elonFormaniSaqla() {
+  var xatoBlok = document.getElementById("elonModalXato");
+  var tugma = document.getElementById("elonSaqlashTugma");
+  xatoBlok.style.display = "none";
+
+  var sarlavha = document.getElementById("e_sarlavha").value.trim();
+  if (!sarlavha) {
+    xatoniKorsat(xatoBlok, "Sarlavha bo'sh bo'lmasligi kerak.");
+    return;
+  }
+
+  var elon = {};
+  if (elonTahrirdagiId) { elon.id = elonTahrirdagiId; }
+
+  for (var i = 0; i < ELON_MAYDONLAR.length; i++) {
+    var nom = ELON_MAYDONLAR[i];
+    var element = document.getElementById("e_" + nom);
+    if (!element) { continue; }
+    elon[nom] = element.value.trim();
+  }
+
+  tugma.disabled = true;
+  tugma.textContent = "Saqlanmoqda...";
+
+  apiSorov({ token: tokenOl(), amal: "elon_saqla", elon: elon })
+    .then(function (natija) {
+      tugma.disabled = false;
+      tugma.textContent = "Saqlash";
+
+      if (!natija.ok) {
+        xatoniKorsat(xatoBlok, natija.xato || "Saqlanmadi.");
+        return;
+      }
+
+      elonFormaniYop();
+      bildirish(natija.xabar || "Saqlandi.");
+      elonlarniYukla();
+    })
+    .catch(function (xato) {
+      tugma.disabled = false;
+      tugma.textContent = "Saqlash";
       xatoniKorsat(xatoBlok, "Serverga ulanib bo'lmadi: " + xato.message);
     });
 }
@@ -1058,10 +1414,6 @@ function sozlamalarniChiz() {
   }
 }
 
-/**
- * O'zgargan kalitlar ro'yxati.
- * Solishtirish matnTekisla orqali — soxta o'zgarish chiqmasin.
- */
 function sozOzgarganlar() {
   var royxat = [];
 
@@ -1174,6 +1526,18 @@ document.getElementById("sozSaqla").addEventListener("click", function () {
 
 
 /* ============================================================
+   UMUMIY: Escape tugmasi
+   ============================================================ */
+
+document.addEventListener("keydown", function (hodisa) {
+  if (hodisa.key !== "Escape") { return; }
+
+  if (elonParda.style.display !== "none") { elonFormaniYop(); return; }
+  if (parda.style.display !== "none")     { formaniYop(); }
+});
+
+
+/* ============================================================
    YORDAMCHI
    ============================================================ */
 
@@ -1182,6 +1546,25 @@ function kitobTop(id) {
     if (kitoblar[i].id === id) { return kitoblar[i]; }
   }
   return null;
+}
+
+function elonTop(id) {
+  for (var i = 0; i < elonlar.length; i++) {
+    if (elonlar[i].id === id) { return elonlar[i]; }
+  }
+  return null;
+}
+
+/**
+ * Bugungi sana — 2026-09-14 ko'rinishida.
+ */
+function bugungiSana() {
+  var s = new Date();
+  var oy  = String(s.getMonth() + 1);
+  var kun = String(s.getDate());
+  if (oy.length  < 2) { oy  = "0" + oy; }
+  if (kun.length < 2) { kun = "0" + kun; }
+  return s.getFullYear() + "-" + oy + "-" + kun;
 }
 
 function xatoniKorsat(blok, matn) {
