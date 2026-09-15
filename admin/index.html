@@ -131,6 +131,17 @@
     margin-top: 14px;
   }
 
+  /* Ogohlantirish — xato emas, lekin diqqat talab qiladi */
+  .ogoh {
+    background: #fff8e6;
+    border: 1px solid #f0d89a;
+    color: #7a5a10;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    grid-column: 1 / -1;
+  }
+
   .yuklanmoqda { text-align: center; padding: 40px 0; color: #666; font-size: 14px; }
 
   .bosh-royxat {
@@ -199,42 +210,25 @@
   tbody tr:hover { background: #f7f8fb; }
 
   .kichik-muqova {
-    width: 34px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 3px;
-    background: #eceef3;
-    display: block;
+    width: 34px; height: 48px;
+    object-fit: cover; border-radius: 3px;
+    background: #eceef3; display: block;
   }
   .muqova-yoq {
-    width: 34px;
-    height: 48px;
-    border-radius: 3px;
-    background: #eceef3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: #b6bac6;
+    width: 34px; height: 48px;
+    border-radius: 3px; background: #eceef3;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #b6bac6;
   }
 
-  /* Jamoa uchun dumaloq rasm */
   .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #eceef3;
-    display: block;
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; background: #eceef3; display: block;
   }
   .avatar-ikon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 40px; height: 40px; border-radius: 50%;
     background: #e8f0fb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
   .avatar-ikon svg { width: 22px; height: 22px; }
 
@@ -251,74 +245,48 @@
   }
   .yashil  { background: #e3f5e8; color: #1c6b34; }
   .kulrang { background: #ededed; color: #666; }
+  .sariq   { background: #fff4d6; color: #8a6014; }
   .belgi:hover { filter: brightness(.94); }
   .belgi:disabled { opacity: .5; cursor: wait; }
 
   .tur-belgi {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    background: #eef1f8;
-    color: #40507f;
+    display: inline-block; padding: 3px 10px; border-radius: 5px;
+    font-size: 12px; background: #eef1f8; color: #40507f;
   }
 
   .kitob-belgi {
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 5px;
-    font-size: 12px;
-    background: #fff6e5;
-    color: #8a6014;
+    display: inline-block; padding: 3px 9px; border-radius: 5px;
+    font-size: 12px; background: #fff6e5; color: #8a6014;
   }
 
   /* ---------- Modal ---------- */
   .parda {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,.45);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 100;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 20px; overflow-y: auto; z-index: 100;
   }
 
   .modal {
-    background: #fff;
-    width: 100%;
-    max-width: 620px;
-    border-radius: 10px;
-    margin: 20px 0;
+    background: #fff; width: 100%; max-width: 620px;
+    border-radius: 10px; margin: 20px 0;
   }
 
   .modal-bosh {
-    padding: 16px 20px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 16px 20px; border-bottom: 1px solid #eee;
+    display: flex; align-items: center; justify-content: space-between;
   }
   .modal-bosh h3 { font-size: 17px; }
   .modal-bosh .yopish {
-    background: none;
-    border: 0;
-    font-size: 26px;
-    line-height: 1;
-    color: #888;
-    cursor: pointer;
-    padding: 0 4px;
+    background: none; border: 0; font-size: 26px; line-height: 1;
+    color: #888; cursor: pointer; padding: 0 4px;
   }
 
   .modal-tana { padding: 20px; }
 
   .modal-oyoq {
-    padding: 14px 20px;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
+    padding: 14px 20px; border-top: 1px solid #eee;
+    display: flex; gap: 10px; justify-content: flex-end;
   }
 
   .tur { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -326,61 +294,48 @@
 
   .bolim {
     grid-column: 1 / -1;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: .4px;
-    color: #888;
-    font-weight: 600;
-    margin-top: 8px;
-    padding-top: 12px;
-    border-top: 1px solid #eee;
+    font-size: 12px; text-transform: uppercase; letter-spacing: .4px;
+    color: #888; font-weight: 600;
+    margin-top: 8px; padding-top: 12px; border-top: 1px solid #eee;
   }
   .bolim:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 
   .izoh { font-size: 12px; color: #888; margin-top: 4px; }
 
-  /* ---------- Rasm yuklash bloki ---------- */
+  /* Hisoblangan qiymat ko'rsatkichi */
+  .hisob {
+    grid-column: 1 / -1;
+    background: #eef6ff;
+    border: 1px solid #cfe2f7;
+    color: #1a4e8a;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* ---------- Rasm yuklash ---------- */
   .rasm-blok {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    background: #f7f8fb;
-    border: 1px solid #e2e4e9;
-    border-radius: 8px;
-    padding: 14px;
+    display: flex; gap: 16px; align-items: flex-start;
+    background: #f7f8fb; border: 1px solid #e2e4e9;
+    border-radius: 8px; padding: 14px;
   }
 
   .rasm-korish {
-    width: 90px;
-    height: 128px;
-    flex-shrink: 0;
-    border-radius: 4px;
-    background: #e6e8ef;
-    object-fit: cover;
-    display: block;
+    width: 90px; height: 128px; flex-shrink: 0;
+    border-radius: 4px; background: #e6e8ef;
+    object-fit: cover; display: block;
   }
 
   .rasm-korish-bosh {
-    width: 90px;
-    height: 128px;
-    flex-shrink: 0;
-    border-radius: 4px;
-    background: #e6e8ef;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #9aa0b0;
-    text-align: center;
-    padding: 8px;
+    width: 90px; height: 128px; flex-shrink: 0;
+    border-radius: 4px; background: #e6e8ef;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #9aa0b0; text-align: center; padding: 8px;
   }
 
-  /* Jamoa uchun kvadrat ko'rish */
   .rasm-blok.avatar-blok .rasm-korish,
   .rasm-blok.avatar-blok .rasm-korish-bosh {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 100px; height: 100px; border-radius: 50%;
   }
 
   .rasm-ong { flex: 1; min-width: 0; }
@@ -390,36 +345,26 @@
 
   /* ---------- Sozlama kartochkasi ---------- */
   .karta {
-    background: #fff;
-    border-radius: 8px;
+    background: #fff; border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,.08);
-    padding: 20px;
-    margin-bottom: 16px;
+    padding: 20px; margin-bottom: 16px;
   }
 
   .karta h3 {
-    font-size: 15px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    font-size: 15px; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid #eee;
   }
 
   .ozgargan input, .ozgargan textarea {
-    border-color: #d9a520;
-    background: #fffdf5;
+    border-color: #d9a520; background: #fffdf5;
   }
 
   .saqlash-panel {
-    position: sticky;
-    bottom: 0;
-    background: #fff;
-    border-top: 1px solid #e2e4e9;
+    position: sticky; bottom: 0;
+    background: #fff; border-top: 1px solid #e2e4e9;
     padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 0 -16px -16px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin: 0 -16px -16px;
     box-shadow: 0 -2px 8px rgba(0,0,0,.05);
   }
   .saqlash-panel .holat { font-size: 13px; color: #666; }
@@ -430,26 +375,19 @@
     thead { display: none; }
 
     tr {
-      background: #fff;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      padding: 6px 0;
+      background: #fff; margin-bottom: 10px;
+      border-radius: 8px; padding: 6px 0;
       box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
 
     td {
-      border: 0;
-      padding: 5px 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
+      border: 0; padding: 5px 14px;
+      display: flex; justify-content: space-between;
+      gap: 12px; align-items: center;
     }
     td::before {
       content: attr(data-nom);
-      font-size: 12px;
-      color: #888;
-      flex-shrink: 0;
+      font-size: 12px; color: #888; flex-shrink: 0;
     }
     td:first-child { padding-top: 10px; }
 
@@ -511,9 +449,9 @@
           <tr>
             <th style="width:50px"></th>
             <th>Nomi</th>
-            <th>Muallif</th>
-            <th>Narx</th>
+            <th>Chakana</th>
             <th>Saytda</th>
+            <th>Ulgurji</th>
             <th>Holat</th>
           </tr>
         </thead>
@@ -700,17 +638,11 @@
           </select>
         </div>
 
-        <div class="bolim">Narx va holat</div>
+        <div class="bolim">Chakana savdo</div>
 
         <div>
           <label for="f_narx_chakana">Chakana narx</label>
           <input type="number" id="f_narx_chakana">
-        </div>
-
-        <div>
-          <label for="f_narx_ulgurji">Ulgurji narx</label>
-          <input type="number" id="f_narx_ulgurji">
-          <div class="izoh">Saytda ko'rinmaydi.</div>
         </div>
 
         <div>
@@ -722,13 +654,40 @@
           </select>
         </div>
 
-        <div>
-          <label for="f_saytda">Saytda ko'rinsinmi</label>
+        <div class="keng-maydon">
+          <label for="f_saytda">Do'konda ko'rinsinmi</label>
           <select id="f_saytda">
             <option value="ha">ha</option>
             <option value="yoq">yo'q</option>
           </select>
         </div>
+
+        <div class="bolim">Ulgurji savdo</div>
+
+        <div>
+          <label for="f_ulgurjida">Ulgurji katalogda</label>
+          <select id="f_ulgurjida">
+            <option value="ha">ha</option>
+            <option value="yoq">yo'q</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="f_narx_ulgurji">Ulgurji narx (1 nusxa)</label>
+          <input type="number" id="f_narx_ulgurji">
+        </div>
+
+        <div>
+          <label for="f_pachka">Pachkadagi nusxa</label>
+          <input type="number" id="f_pachka">
+          <div class="izoh">Bitta pachkada nechta kitob bor.</div>
+        </div>
+
+        <div></div>
+
+        <div class="hisob" id="ulgurjiHisob">1 pachka narxi hisoblanadi.</div>
+
+        <div class="ogoh" id="ulgurjiOgoh" style="display:none"></div>
 
         <div class="bolim">Ichki hisob</div>
 
@@ -826,7 +785,6 @@
           </select>
           <div class="izoh" id="eKitobIzoh">
             Kitob tanlansa, bannerdagi tugma o'sha kitobga olib boradi.
-            Kitob "sotuvda" bo'lsa — do'konga, "tez kunda" bo'lsa — kitob sahifasiga.
           </div>
         </div>
 
@@ -843,7 +801,7 @@
         <div>
           <label for="e_tartib">Tartib</label>
           <input type="number" id="e_tartib">
-          <div class="izoh">Eng kichik raqam bannerda turadi.</div>
+          <div class="izoh">Eng kichik raqam bannerda birinchi turadi.</div>
         </div>
 
       </div>
@@ -947,20 +905,18 @@
 var API_URL = "https://script.google.com/macros/s/AKfycbzqzes3O_B1kjZmBjG0aW-UeEtwTKiDh5z5g3JcOFCt-H7pyJI_fbsBh3ENjk2WOzKe/exec";
 var SAQLASH_KALITI = "mfb_token";
 
-// Rasmlar qaysi papkalarga yuklanadi
 var MUQOVA_PAPKA = "rasmlar/muqovalar";
 var ELON_PAPKA   = "rasmlar/elonlar";
 var JAMOA_PAPKA  = "rasmlar/jamoa";
 
-// Rasm kichraytirish
 var RASM_ENG_KATTA = 900;
 var RASM_SIFAT = 0.85;
 
 var MAYDONLAR = [
   "nomi", "muallif", "tarjimon", "til_asl", "janr", "janr_tafsil",
   "tavsif", "sahifa", "yil", "isbn", "muqova", "rasm",
-  "narx_chakana", "narx_ulgurji", "holat", "saytda",
-  "tiraj", "sotilgan", "tartib"
+  "narx_chakana", "narx_ulgurji", "ulgurjida", "pachka",
+  "holat", "saytda", "tiraj", "sotilgan", "tartib"
 ];
 
 var ELON_MAYDONLAR = [
@@ -1013,7 +969,7 @@ var SOZLAMA_GURUHLARI = [
       { kalit: "yetkazish_matn", nom: "Yetkazib berish", tur: "uzun",
         izoh: "Aloqa sahifasida chiqadi." },
       { kalit: "ulgurji_matn",   nom: "Ulgurji savdo",   tur: "uzun",
-        izoh: "Ulgurji savdo sahifasida chiqadi." }
+        izoh: "Ulgurji sahifasida chiqadi." }
     ]
   }
 ];
@@ -1028,7 +984,6 @@ var sozlamalarAsl = {};
 var elonlarYuklandi = false;
 var jamoaYuklandi = false;
 
-// Ayol va erkak ikonkalari — saytda ham shular ishlatiladi
 var IKON_ERKAK = '<svg viewBox="0 0 24 24" fill="none" stroke="#40507f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 7-7h2a7 7 0 0 1 7 7v1"/></svg>';
 var IKON_AYOL   = '<svg viewBox="0 0 24 24" fill="none" stroke="#7a4a7a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21c0-4 2.5-7 7-7s7 3 7 7"/><path d="M7 9c0-3 2-6 5-6s5 3 5 6"/></svg>';
 
@@ -1064,6 +1019,11 @@ function matnTekisla(matn) {
     .replace(/\s+$/, "");
 }
 
+function sonQil(qiymat) {
+  var n = parseInt(String(qiymat === undefined ? "" : qiymat).replace(/\D/g, ""), 10);
+  return isNaN(n) ? 0 : n;
+}
+
 
 /* ============================================================
    RASM BILAN ISHLASH
@@ -1075,9 +1035,6 @@ function rasmHavola(papka, faylNomi, yangimi) {
   return yangimi ? (manzil + "?t=" + Date.now()) : manzil;
 }
 
-/**
- * Tanlangan faylni kichraytiradi va base64 ko'rinishida qaytaradi.
- */
 function rasmniTayyorla(fayl) {
   return new Promise(function (bajar, rad) {
     if (!fayl.type || fayl.type.indexOf("image/") !== 0) {
@@ -1140,9 +1097,6 @@ function rasmniYubor(papka, faylNomi, base64) {
   });
 }
 
-/**
- * Ko'rish oynasini chizadi.
- */
 function rasmKorishniChiz(oramId, papka, faylNomi, yangimi, boshMatn) {
   var oram = document.getElementById(oramId);
   oram.innerHTML = "";
@@ -1172,8 +1126,7 @@ function rasmKorishniChiz(oramId, papka, faylNomi, yangimi, boshMatn) {
 }
 
 /**
- * Rasm yuklash jarayonini boshqaradigan umumiy funksiya.
- * Uchala forma ham shuni ishlatadi.
+ * Rasm yuklashni boshqaradigan umumiy funksiya.
  */
 function rasmYuklashniIshlat(sozlama) {
   var faylMaydon = document.getElementById(sozlama.faylId);
@@ -1347,6 +1300,16 @@ function kitoblarniYukla() {
     });
 }
 
+/**
+ * Kitob ulgurji katalogda ko'rinadimi — uchala shart tekshiriladi.
+ * Server ham xuddi shu shartni qo'llaydi.
+ */
+function ulgurjiTayyormi(k) {
+  return String(k.ulgurjida || "").toLowerCase() === "ha"
+      && sonQil(k.narx_ulgurji) > 0
+      && sonQil(k.pachka) > 0;
+}
+
 function jadvalniChiz() {
   var tana = document.getElementById("tana");
   tana.innerHTML = "";
@@ -1361,22 +1324,35 @@ function jadvalniChiz() {
         '" alt="" onerror="this.outerHTML=\'<div class=&quot;muqova-yoq&quot;>—</div>\'">'
       : '<div class="muqova-yoq">—</div>';
 
+    // Ulgurji holati: to'liq / to'liqsiz / o'chiq
+    var ulgurjiBelgi;
+
+    if (String(k.ulgurjida || "").toLowerCase() !== "ha") {
+      ulgurjiBelgi = '<span class="belgi kulrang" style="cursor:default">yo\'q</span>';
+    } else if (ulgurjiTayyormi(k)) {
+      ulgurjiBelgi = '<span class="belgi yashil" style="cursor:default">'
+                   + sonQil(k.pachka) + ' ta</span>';
+    } else {
+      ulgurjiBelgi = '<span class="belgi sariq" style="cursor:default">to\'liqsiz</span>';
+    }
+
     qator.innerHTML =
       '<td data-nom="Muqova">'   + muqova + '</td>' +
-      '<td data-nom="Nomi"><strong>' + xavfsiz(k.nomi) + '</strong></td>' +
-      '<td data-nom="Muallif">'  + xavfsiz(k.muallif) + '</td>' +
-      '<td data-nom="Narx">'     + narxFormat(k.narx_chakana) + '</td>' +
+      '<td data-nom="Nomi"><strong>' + xavfsiz(k.nomi) + '</strong>' +
+        '<div style="font-size:12px;color:#888">' + xavfsiz(k.muallif) + '</div></td>' +
+      '<td data-nom="Chakana">'  + narxFormat(k.narx_chakana) + '</td>' +
       '<td data-nom="Saytda">'   +
         '<button class="belgi ' + (saytda ? 'yashil' : 'kulrang') + '" ' +
                 'data-id="' + xavfsiz(k.id) + '">' +
           (saytda ? 'ha' : "yo'q") +
         '</button>' +
       '</td>' +
+      '<td data-nom="Ulgurji">' + ulgurjiBelgi + '</td>' +
       '<td data-nom="Holat">' + xavfsiz(k.holat) + '</td>';
 
     (function (kitobId) {
       qator.addEventListener("click", function (hodisa) {
-        if (hodisa.target.classList.contains("belgi")) { return; }
+        if (hodisa.target.tagName === "BUTTON") { return; }
         formaniOch(kitobId);
       });
     })(k.id);
@@ -1384,7 +1360,7 @@ function jadvalniChiz() {
     tana.appendChild(qator);
   }
 
-  var belgilar = tana.querySelectorAll(".belgi");
+  var belgilar = tana.querySelectorAll("button.belgi");
   for (var j = 0; j < belgilar.length; j++) {
     belgilar[j].addEventListener("click", function (hodisa) {
       hodisa.stopPropagation();
@@ -1416,11 +1392,11 @@ function saytdaAlmashtir(tugma) {
     if (yangi === "ha") {
       tugma.className = "belgi yashil";
       tugma.textContent = "ha";
-      bildirish("Saytda ko'rinadigan qilindi.");
+      bildirish("Do'konda ko'rinadigan qilindi.");
     } else {
       tugma.className = "belgi kulrang";
       tugma.textContent = "yo'q";
-      bildirish("Saytdan yashirildi.");
+      bildirish("Do'kondan yashirildi.");
     }
   })
   .catch(function (xato) {
@@ -1447,6 +1423,44 @@ parda.addEventListener("click", function (hodisa) {
   if (hodisa.target === parda) { formaniYop(); }
 });
 
+/**
+ * Ulgurji maydonlari o'zgarganda hisobni va ogohlantirishni yangilaydi.
+ */
+function ulgurjiHisobiniYangila() {
+  var ulgurjida = document.getElementById("f_ulgurjida").value;
+  var narx = sonQil(document.getElementById("f_narx_ulgurji").value);
+  var pachka = sonQil(document.getElementById("f_pachka").value);
+
+  var hisob = document.getElementById("ulgurjiHisob");
+  var ogoh = document.getElementById("ulgurjiOgoh");
+
+  ogoh.style.display = "none";
+
+  if (narx > 0 && pachka > 0) {
+    var pachkaNarxi = narx * pachka;
+    hisob.textContent = "1 pachka = " + pachka + " nusxa × "
+                      + sonAjrat(narx) + " = " + sonAjrat(pachkaNarxi) + " so'm";
+    hisob.style.display = "block";
+  } else {
+    hisob.style.display = "none";
+  }
+
+  // "ha" qilingan, lekin ma'lumot to'liq emas
+  if (ulgurjida === "ha" && (narx <= 0 || pachka <= 0)) {
+    var yetishmagan = [];
+    if (narx <= 0) { yetishmagan.push("ulgurji narx"); }
+    if (pachka <= 0) { yetishmagan.push("pachkadagi nusxa"); }
+
+    ogoh.textContent = "Bu kitob ulgurji katalogda KO'RINMAYDI: "
+                     + yetishmagan.join(" va ") + " to'ldirilmagan.";
+    ogoh.style.display = "block";
+  }
+}
+
+document.getElementById("f_ulgurjida").addEventListener("change", ulgurjiHisobiniYangila);
+document.getElementById("f_narx_ulgurji").addEventListener("input", ulgurjiHisobiniYangila);
+document.getElementById("f_pachka").addEventListener("input", ulgurjiHisobiniYangila);
+
 function formaniOch(id) {
   tahrirdagiId = id || "";
   document.getElementById("modalXato").style.display = "none";
@@ -1465,12 +1479,19 @@ function formaniOch(id) {
     var qiymat = matnTekisla(kitob[nom]);
 
     if (!id) {
-      if (nom === "saytda") { qiymat = "yoq"; }
-      if (nom === "holat")  { qiymat = "sotuvda"; }
+      if (nom === "saytda")    { qiymat = "yoq"; }
+      if (nom === "holat")     { qiymat = "sotuvda"; }
+      if (nom === "ulgurjida") { qiymat = "yoq"; }
     }
+
+    // Bo'sh tanlov ro'yxatlariga standart qiymat
+    if (nom === "ulgurjida" && !qiymat) { qiymat = "yoq"; }
+    if (nom === "saytda" && !qiymat) { qiymat = "yoq"; }
 
     element.value = qiymat;
   }
+
+  ulgurjiHisobiniYangila();
 
   rasmKorishniChiz("kRasmKorish", MUQOVA_PAPKA, kitob.rasm || "");
 
@@ -1552,7 +1573,6 @@ function formaniSaqla() {
             document.getElementById("soni").textContent = kitoblar.length + " ta";
           }
 
-          // Yangi kitob bo'lsa forma ochiq qoladi — endi rasm qo'shish mumkin
           if (yangimi) {
             formaniOch(yangiId);
             bildirish("Endi rasm qo'shishingiz mumkin.");
@@ -1597,10 +1617,7 @@ function elonlarniYukla() {
       elonlar = natija.elonlar || [];
       document.getElementById("elonSoni").textContent = elonlar.length + " ta";
 
-      if (elonlar.length === 0) {
-        bosh.style.display = "block";
-        return;
-      }
+      if (elonlar.length === 0) { bosh.style.display = "block"; return; }
 
       elonJadvalniChiz();
       jadval.style.display = "table";
@@ -1622,13 +1639,11 @@ function elonJadvalniChiz() {
     var qator = document.createElement("tr");
     var faolmi = String(e.faol || "").toLowerCase() === "ha";
 
-    // Bog'langan kitob nomi
     var kitobHtml = '<span style="color:#aaa">—</span>';
     if (e.kitob_id) {
       var bogliq = kitobTop(e.kitob_id);
-      kitobHtml = bogliq
-        ? '<span class="kitob-belgi">' + xavfsiz(bogliq.nomi) + '</span>'
-        : '<span class="kitob-belgi">' + xavfsiz(e.kitob_id) + '</span>';
+      kitobHtml = '<span class="kitob-belgi">'
+                + xavfsiz(bogliq ? bogliq.nomi : e.kitob_id) + '</span>';
     }
 
     qator.innerHTML =
@@ -1646,7 +1661,7 @@ function elonJadvalniChiz() {
 
     (function (elonId) {
       qator.addEventListener("click", function (hodisa) {
-        if (hodisa.target.classList.contains("belgi")) { return; }
+        if (hodisa.target.tagName === "BUTTON") { return; }
         elonFormaniOch(elonId);
       });
     })(e.id);
@@ -1654,7 +1669,7 @@ function elonJadvalniChiz() {
     tana.appendChild(qator);
   }
 
-  var belgilar = tana.querySelectorAll(".belgi");
+  var belgilar = tana.querySelectorAll("button.belgi");
   for (var j = 0; j < belgilar.length; j++) {
     belgilar[j].addEventListener("click", function (hodisa) {
       hodisa.stopPropagation();
@@ -1721,11 +1736,6 @@ elonParda.addEventListener("click", function (hodisa) {
   if (hodisa.target === elonParda) { elonFormaniYop(); }
 });
 
-/**
- * Kitob tanlash ro'yxatini to'ldiradi.
- * Holat qavs ichida ko'rsatiladi — tugma qayerga olib borishi
- * shunga bog'liq.
- */
 function kitobRoyxatiniTuldir(tanlangan) {
   var tanlov = document.getElementById("e_kitob_id");
   tanlov.innerHTML = '<option value="">— bog\'lanmagan —</option>';
@@ -1742,9 +1752,6 @@ function kitobRoyxatiniTuldir(tanlangan) {
   kitobIzohiniYangila();
 }
 
-/**
- * Tanlangan kitobga qarab izohni o'zgartiradi.
- */
 function kitobIzohiniYangila() {
   var id = document.getElementById("e_kitob_id").value;
   var izoh = document.getElementById("eKitobIzoh");
@@ -1760,9 +1767,9 @@ function kitobIzohiniYangila() {
   var holat = String(k.holat || "").toLowerCase();
 
   if (holat === "sotuvda") {
-    izoh.textContent = "Tugma: \"Sotuvda\" — do'konga olib boradi.";
+    izoh.textContent = "Tugma: \"SOTUVDA\" — do'konga olib boradi.";
   } else if (holat === "tez kunda") {
-    izoh.textContent = "Tugma: \"Tez kunda\" — kitob sahifasiga olib boradi.";
+    izoh.textContent = "Tugma: \"TEZ KUNDA\" — kitob sahifasiga olib boradi.";
   } else {
     izoh.textContent = "Bu kitob holati \"" + k.holat + "\". Tugma \"Batafsil\" bo'ladi.";
   }
@@ -1782,7 +1789,7 @@ function elonFormaniOch(id) {
 
   for (var i = 0; i < ELON_MAYDONLAR.length; i++) {
     var nom = ELON_MAYDONLAR[i];
-    if (nom === "kitob_id") { continue; }   // alohida to'ldiriladi
+    if (nom === "kitob_id") { continue; }
 
     var element = document.getElementById("e_" + nom);
     if (!element) { continue; }
@@ -1799,7 +1806,6 @@ function elonFormaniOch(id) {
   }
 
   kitobRoyxatiniTuldir(elon.kitob_id || "");
-
   rasmKorishniChiz("eRasmKorish", ELON_PAPKA, elon.rasm || "");
 
   var tanlaTugma = document.getElementById("eRasmTanla");
@@ -1807,7 +1813,7 @@ function elonFormaniOch(id) {
 
   if (id) {
     tanlaTugma.disabled = false;
-    izoh.textContent = "Rasm " + id + ".jpg nomi bilan saqlanadi.";
+    izoh.textContent = "Keng rasm tanlang. " + id + ".jpg nomi bilan saqlanadi.";
   } else {
     tanlaTugma.disabled = true;
     izoh.textContent = "Rasm qo'shish uchun avval e'lonni saqlang.";
@@ -1929,10 +1935,7 @@ function jamoaniYukla() {
       jamoa = natija.jamoa || [];
       document.getElementById("jamoaSoni").textContent = jamoa.length + " ta";
 
-      if (jamoa.length === 0) {
-        bosh.style.display = "block";
-        return;
-      }
+      if (jamoa.length === 0) { bosh.style.display = "block"; return; }
 
       jamoaJadvalniChiz();
       jadval.style.display = "table";
@@ -1974,7 +1977,7 @@ function jamoaJadvalniChiz() {
 
     (function (xodimId) {
       qator.addEventListener("click", function (hodisa) {
-        if (hodisa.target.classList.contains("belgi")) { return; }
+        if (hodisa.target.tagName === "BUTTON") { return; }
         jamoaFormaniOch(xodimId);
       });
     })(x.id);
@@ -1982,7 +1985,7 @@ function jamoaJadvalniChiz() {
     tana.appendChild(qator);
   }
 
-  var belgilar = tana.querySelectorAll(".belgi");
+  var belgilar = tana.querySelectorAll("button.belgi");
   for (var j = 0; j < belgilar.length; j++) {
     belgilar[j].addEventListener("click", function (hodisa) {
       hodisa.stopPropagation();
@@ -2066,6 +2069,9 @@ function jamoaFormaniOch(id) {
       if (nom === "faol") { qiymat = "ha"; }
       if (nom === "jins") { qiymat = "erkak"; }
     }
+
+    if (nom === "jins" && !qiymat) { qiymat = "erkak"; }
+    if (nom === "faol" && !qiymat) { qiymat = "ha"; }
 
     element.value = qiymat;
   }
@@ -2280,9 +2286,7 @@ function sozOzgarganlar() {
       var asl   = matnTekisla(sozlamalarAsl[kalit]);
       var yangi = matnTekisla(maydon.value);
 
-      if (yangi !== asl) {
-        royxat.push({ kalit: kalit, qiymat: yangi });
-      }
+      if (yangi !== asl) { royxat.push({ kalit: kalit, qiymat: yangi }); }
     }
   }
 
@@ -2456,10 +2460,14 @@ function xavfsiz(matn) {
   return d.innerHTML;
 }
 
+function sonAjrat(son) {
+  return String(son).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 function narxFormat(qiymat) {
-  var son = parseInt(qiymat, 10);
-  if (isNaN(son)) { return "—"; }
-  return son.toLocaleString("ru-RU").replace(/,/g, " ") + " so'm";
+  var son = sonQil(qiymat);
+  if (son <= 0) { return "—"; }
+  return sonAjrat(son) + " so'm";
 }
 
 
